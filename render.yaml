@@ -15,19 +15,16 @@ services:
       type: pserv
       property: host
   - key: WORDPRESS_DB_NAME
-    fromService:
-      name: dollyskettle-mysql
-      type: pserv
+    fromGroup:
+      name: dollyskettle-env
       envVarKey: MYSQL_DATABASE
   - key: WORDPRESS_DB_USER
-    fromService:
-      name: dollyskettle-mysql
-      type: pserv
+    fromGroup:
+      name: dollyskettle-env
       envVarKey: MYSQL_USER
   - key: WORDPRESS_DB_PASSWORD
-    fromService:
-      name: dollyskettle-mysql
-      type: pserv
+    fromGroup:
+      name: dollyskettle-env
       envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
