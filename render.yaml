@@ -1,6 +1,6 @@
 services:
 - type: web
-  name: wordpress
+  name: dollyskettle-wordpress
   repo: https://github.com/jimthoburn/dollyskettle-wordpress.git
   env: docker
   plan: starter
