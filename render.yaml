@@ -15,16 +15,19 @@ services:
       type: pserv
       property: host
   - key: WORDPRESS_DB_NAME
-    fromGroup:
-      name: dollyskettle-env
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
       envVarKey: MYSQL_DATABASE
   - key: WORDPRESS_DB_USER
-    fromGroup:
-      name: dollyskettle-env
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
       envVarKey: MYSQL_USER
   - key: WORDPRESS_DB_PASSWORD
-    fromGroup:
-      name: dollyskettle-env
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
       envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
@@ -35,11 +38,6 @@ services:
     name: mysql
     mountPath: /var/lib/mysql
     sizeGB: 1
-  envVars:
-  - fromGroup: dollyskettle-env
-
-envVarGroups:
-- name: dollyskettle-env
   envVars:
   - key: MYSQL_DATABASE
     value: mysql
