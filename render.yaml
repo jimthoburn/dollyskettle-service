@@ -12,7 +12,7 @@ services:
   - fromGroup: dollyskettle-env
 
 envVarGroups:
-- name: dollyskettlee-env
+- name: dollyskettle-env
   envVars:
   - key: MYSQL_DATABASE
     value: mysql
