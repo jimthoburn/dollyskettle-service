@@ -1,9 +1,39 @@
 services:
+- type: web
+  name: wordpress
+  repo: https://github.com/jimthoburn/dollyskettle-wordpress.git
+  env: docker
+  plan: starter
+  disk:
+    name: wordpress
+    mountPath: /var/www/html
+    sizeGB: 20
+  envVars:
+  - key: WORDPRESS_DB_HOST
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
+      property: host
+  - key: WORDPRESS_DB_NAME
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
+      envVarKey: MYSQL_DATABASE
+  - key: WORDPRESS_DB_USER
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
+      envVarKey: MYSQL_USER
+  - key: WORDPRESS_DB_PASSWORD
+    fromService:
+      name: dollyskettle-mysql
+      type: pserv
+      envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
-  plan: starter
-  env: docker
   repo: https://github.com/jimthoburn/dollyskettle-mysql.git
+  env: docker
+  plan: starter
   disk:
     name: mysql
     mountPath: /var/lib/mysql
