@@ -47,7 +47,7 @@ services:
   - key: MYSQL_DATABASE
     value: wordpress
   - key: MYSQL_USER
-    value: mysql
+    value: wordpress
   - key: MYSQL_PASSWORD
     generateValue: true
   - key: MYSQL_ROOT_PASSWORD
