@@ -29,6 +29,11 @@ services:
       name: dollyskettle-mysql
       type: pserv
       envVarKey: MYSQL_PASSWORD
+- type: web
+  name: dollyskettle-adminer
+  repo: https://github.com/jimthoburn/dollyskettle-adminer.git
+  env: docker
+  plan: starter
 - type: pserv
   name: dollyskettle-mysql
   repo: https://github.com/jimthoburn/dollyskettle-mysql.git
