@@ -7,7 +7,7 @@ services:
   plan: starter
   disk:
     name: wordpress
-    mountPath: /var/www/html
+    mountPath: /var/www
     sizeGB: 15
   envVars:
   - key: WORDPRESS_DB_HOST
