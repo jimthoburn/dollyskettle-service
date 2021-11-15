@@ -80,9 +80,3 @@ services:
       name: dollyskettle-mysql
       type: pserv
       envVarKey: MYSQL_PASSWORD
-- type: web
-  name: dollyskettle-adminer
-  dockerfilePath: ./adminer/Dockerfile
-  dockerContext: ./adminer
-  env: docker
-  plan: starter
