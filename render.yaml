@@ -49,7 +49,7 @@ services:
     generateValue: true
   - key: MYSQL_ROOT_PASSWORD
     generateValue: true
-- type: pserv
+- type: worker
   name: dollyskettle-backup
   dockerfilePath: ./backup/Dockerfile
   dockerContext: ./backup
