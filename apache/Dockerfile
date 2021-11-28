@@ -156,4 +156,6 @@ RUN apt-get update && apt-get install -y git
 
 RUN apt-get update && apt-get install -y git-lfs
 
+RUN apt-get update && apt-get install -y alpine-pico
+
 USER www-data:www-data
