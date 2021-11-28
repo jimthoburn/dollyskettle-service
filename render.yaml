@@ -1,17 +1,24 @@
+# https://render.com/docs/blueprint-spec
 previewsEnabled: true
 services:
+- name: dollyskettle-settings
+  envVars:
+    - key: SSH_KEY_PASSPHRASE
+      sync: false # placeholder for a value to be added in the dashboard
 - type: web
   name: dollyskettle-wordpress
   dockerfilePath: ./apache/Dockerfile
   dockerContext: ./apache
   env: docker
   autoDeploy: false
+  region: oregon
   plan: starter
   disk:
     name: wordpress
     mountPath: /var/www
     sizeGB: 15
   envVars:
+  - fromGroup: dollyskettle-settings
   - key: WORDPRESS_DB_HOST
     fromService:
       name: dollyskettle-mysql
@@ -38,6 +45,7 @@ services:
   dockerContext: ./mysql
   env: docker
   autoDeploy: false
+  region: oregon
   plan: starter
   disk:
     name: mysql
@@ -58,6 +66,7 @@ services:
   dockerContext: ./backup
   env: docker
   autoDeploy: false
+  region: oregon
   plan: starter
   disk:
     name: backup
@@ -90,4 +99,5 @@ services:
   dockerContext: ./adminer
   env: docker
   autoDeploy: false
+  region: oregon
   plan: starter
