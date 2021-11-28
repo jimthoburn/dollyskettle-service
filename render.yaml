@@ -2,9 +2,10 @@ previewsEnabled: true
 services:
 - type: web
   name: dollyskettle-wordpress
-  dockerfilePath: ./wordpress/Dockerfile
-  dockerContext: ./wordpress
+  dockerfilePath: ./apache/Dockerfile
+  dockerContext: ./apache
   env: docker
+  autoDeploy: false
   plan: starter
   disk:
     name: wordpress
@@ -36,6 +37,7 @@ services:
   dockerfilePath: ./mysql/Dockerfile
   dockerContext: ./mysql
   env: docker
+  autoDeploy: false
   plan: starter
   disk:
     name: mysql
@@ -55,6 +57,7 @@ services:
   dockerfilePath: ./backup/Dockerfile
   dockerContext: ./backup
   env: docker
+  autoDeploy: false
   plan: starter
   disk:
     name: backup
@@ -86,5 +89,5 @@ services:
   dockerfilePath: ./adminer/Dockerfile
   dockerContext: ./adminer
   env: docker
+  autoDeploy: false
   plan: starter
-
