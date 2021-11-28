@@ -83,6 +83,7 @@ services:
       envVarKey: MYSQL_PASSWORD
 - type: web
   name: dollyskettle-adminer
-  repo: https://github.com/jimthoburn/dollyskettle-adminer.git
+  dockerfilePath: ./adminer/Dockerfile
+  dockerContext: ./adminer
   env: docker
   plan: starter
