@@ -152,4 +152,8 @@ RUN apt-get update && apt-get install -y magic-wormhole
 
 RUN apt-get update && apt-get install -y default-mysql-client
 
+RUN apt-get update && apt-get install -y git
+
+RUN apt-get update && apt-get install -y git-lfs
+
 USER www-data:www-data
