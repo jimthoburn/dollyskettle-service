@@ -8,8 +8,8 @@ envVarGroups:
 services:
 - type: web
   name: dollyskettle-wordpress
-  dockerfilePath: ./apache/Dockerfile
-  dockerContext: ./apache
+  dockerfilePath: ./wordpress/Dockerfile
+  dockerContext: ./wordpress
   env: docker
   autoDeploy: false
   region: oregon
@@ -42,8 +42,8 @@ services:
       envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
-  dockerfilePath: ./mysql/Dockerfile
-  dockerContext: ./mysql
+  dockerfilePath: ./mysql-server/Dockerfile
+  dockerContext: ./mysql-server
   env: docker
   autoDeploy: false
   region: oregon
