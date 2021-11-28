@@ -87,3 +87,4 @@ services:
   dockerContext: ./adminer
   env: docker
   plan: starter
+
