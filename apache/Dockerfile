@@ -140,6 +140,10 @@ RUN set -eux; \
 	# chown -R www-data:www-data wp-content; \
 	# chmod -R 777 wp-content
 
+# RUN mv "/usr/local/etc/php/php.ini-production" "/usr/local/etc/php/php.ini"
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 VOLUME /var/www
 
 # COPY --chown=www-data:www-data wp-config-docker.php /usr/src/wordpress/
