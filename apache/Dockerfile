@@ -153,15 +153,13 @@ VOLUME /var/www
 CMD ["apache2-foreground"]
 
 RUN apt-get update && apt-get install -y magic-wormhole
-
 RUN apt-get update && apt-get install -y default-mysql-client
-
 RUN apt-get update && apt-get install -y git
-
 RUN apt-get update && apt-get install -y git-lfs
-
 RUN apt-get update && apt-get install -y alpine-pico
-
 RUN apt-get update && apt-get install -y openssh-client
+
+RUN git config --global user.email "github-automation@jimthoburn.com"
+RUN git config --global user.name "Jim Thoburn (automation)"
 
 USER www-data:www-data
