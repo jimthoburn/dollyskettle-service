@@ -1,5 +1,4 @@
 # https://render.com/docs/blueprint-spec
-previewsEnabled: true
 #
 # TRICKY: We can’t include the environment group here
 #         if we want to share it between blueprint instances
@@ -24,13 +23,14 @@ previewsEnabled: true
 #     - fileName: known_hosts
 #       sync: false
 #
+previewsEnabled: true
 services:
 - type: web
   name: dollyskettle-wordpress
   env: docker
   dockerfilePath: ./apache/Dockerfile
   dockerContext: ./apache
-  initialDeployHook: ./apache/setup.sh
+  initialDeployHook: /var/www/setup.sh
   autoDeploy: false
   region: oregon
   plan: starter

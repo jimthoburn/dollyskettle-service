@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Starting job"
+echo "Starting setup"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -53,5 +53,5 @@ rm -r /var/www/html
 ln -s /var/www/git-wordpress/html /var/www/html
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Finished job"
+echo "Finished setup"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
