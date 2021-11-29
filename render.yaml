@@ -8,8 +8,8 @@ envVarGroups:
 services:
 - type: web
   name: dollyskettle-wordpress
-  dockerfilePath: ./wordpress/Dockerfile
-  dockerContext: ./wordpress
+  dockerfilePath: ./php/Dockerfile
+  dockerContext: ./php
   env: docker
   autoDeploy: false
   region: oregon
