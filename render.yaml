@@ -1,10 +1,5 @@
 # https://render.com/docs/blueprint-spec
 previewsEnabled: true
-envVarGroups:
-- name: dollyskettle-settings
-  envVars:
-    - key: SSH_KEY_PASSPHRASE
-      sync: false # placeholder for a value to be added in the dashboard
 services:
 - type: web
   name: dollyskettle-wordpress
