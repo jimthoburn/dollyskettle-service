@@ -159,7 +159,4 @@ RUN apt-get update && apt-get install -y git-lfs
 RUN apt-get update && apt-get install -y alpine-pico
 RUN apt-get update && apt-get install -y openssh-client
 
-RUN git config --global user.email "github-automation@jimthoburn.com"
-RUN git config --global user.name "Jim Thoburn (automation)"
-
 USER www-data:www-data
