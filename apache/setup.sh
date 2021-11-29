@@ -44,12 +44,15 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Import MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-mysql -h $WORDPRESS_DB_HOST -u $WORDPRESS_DB_USER --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME < /var/www/git-wordpress/wordpress-database.sql
+mysql -h $WORDPRESS_DB_HOST -u $WORDPRESS_DB_USER \
+  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+  < /var/www/git-wordpress/wordpress-database.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Replace default HTML folder"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
+chmod 777 /var/www/html
 rm -r /var/www/html
 ln -s /var/www/git-wordpress/html /var/www/html
 
