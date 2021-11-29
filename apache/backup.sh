@@ -15,14 +15,14 @@ echo "Configure Git"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git config --global user.email $GITHUB_USER_EMAIL
-git config --global user.name $GITHUB_USER_NAME
+git config --global user.name "$GITHUB_USER_NAME"
 git lfs install
 
-rm -r /var/www/.ssh
+rm -rf /var/www/.ssh
 mkdir /var/www/.ssh
 cp /etc/secrets/id_ed25519 /var/www/.ssh/id_ed25519
 cp /etc/secrets/id_ed25519.pub /var/www/.ssh/id_ed25519.pub
-cp /etc/secrets/id_ed25519.pub /var/www/.ssh/known_hosts
+cp /etc/secrets/known_hosts /var/www/.ssh/known_hosts
 
 # https://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file
 sed -i -e '$a\' /var/www/.ssh/id_ed25519
