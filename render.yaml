@@ -42,8 +42,8 @@ services:
       envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
-  dockerfilePath: ./mysql-server/Dockerfile
-  dockerContext: ./mysql-server
+  dockerfilePath: ./mysql/Dockerfile
+  dockerContext: ./mysql
   env: docker
   autoDeploy: false
   region: oregon
