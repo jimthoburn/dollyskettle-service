@@ -6,8 +6,12 @@ previewsEnabled: true
 # envVarGroups:
 # - name: dollyskettle-settings
 #   envVars:
-#     - key: SSH_KEY_PASSPHRASE
-#       sync: false # placeholder for a value to be added in the dashboard
+#     - key: GITHUB_USER_EMAIL
+#       sync: false
+#     - key: GITHUB_USER_NAME
+#       sync: false
+#     - key: GITHUB_REPOSITORY
+#       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
@@ -17,13 +21,16 @@ previewsEnabled: true
 #       sync: false
 #     - fileName: id_ed25519.pub
 #       sync: false
+#     - fileName: known_hosts
+#       sync: false
 #
 services:
 - type: web
   name: dollyskettle-wordpress
+  env: docker
   dockerfilePath: ./apache/Dockerfile
   dockerContext: ./apache
-  env: docker
+  initialDeployHook: ./apache/setup.sh
   autoDeploy: false
   region: oregon
   plan: starter
