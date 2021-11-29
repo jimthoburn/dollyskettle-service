@@ -102,55 +102,50 @@ RUN set -eux; \
 # (replace all instances of "%h" with "%a" in LogFormat)
 	find /etc/apache2 -type f -name '*.conf' -exec sed -ri 's/([[:space:]]*LogFormat[[:space:]]+"[^"]*)%h([^"]*")/\1%a\2/g' '{}' +
 
-# RUN set -eux; \
-# 	version='5.8.2'; \
-# 	sha1='c3b1b59553eafbf301c83b14c5eeae4cf1c86044'; \
-# 	\
-# 	curl -o wordpress.tar.gz -fL "https://wordpress.org/wordpress-$version.tar.gz"; \
-# 	echo "$sha1 *wordpress.tar.gz" | sha1sum -c -; \
-# 	\
+RUN set -eux; \
+	version='5.8.2'; \
+	sha1='c3b1b59553eafbf301c83b14c5eeae4cf1c86044'; \
+	\
+	curl -o wordpress.tar.gz -fL "https://wordpress.org/wordpress-$version.tar.gz"; \
+	echo "$sha1 *wordpress.tar.gz" | sha1sum -c -; \
+	\
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
-	# tar -xzf wordpress.tar.gz -C /usr/src/; \
-	# rm wordpress.tar.gz; \
-	# \
+	tar -xzf wordpress.tar.gz -C /usr/src/; \
+	rm wordpress.tar.gz; \
+	\
 # https://wordpress.org/support/article/htaccess/
-	# [ ! -e /usr/src/wordpress/.htaccess ]; \
-	# { \
-	# 	echo '# BEGIN WordPress'; \
-	# 	echo ''; \
-	# 	echo 'RewriteEngine On'; \
-	# 	echo 'RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]'; \
-	# 	echo 'RewriteBase /'; \
-	# 	echo 'RewriteRule ^index\.php$ - [L]'; \
-	# 	echo 'RewriteCond %{REQUEST_FILENAME} !-f'; \
-	# 	echo 'RewriteCond %{REQUEST_FILENAME} !-d'; \
-	# 	echo 'RewriteRule . /index.php [L]'; \
-	# 	echo ''; \
-	# 	echo '# END WordPress'; \
-	# } > /usr/src/wordpress/.htaccess; \
-	# \
-	# chown -R www-data:www-data /usr/src/wordpress; \
+	[ ! -e /usr/src/wordpress/.htaccess ]; \
+	{ \
+		echo '# BEGIN WordPress'; \
+		echo ''; \
+		echo 'RewriteEngine On'; \
+		echo 'RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]'; \
+		echo 'RewriteBase /'; \
+		echo 'RewriteRule ^index\.php$ - [L]'; \
+		echo 'RewriteCond %{REQUEST_FILENAME} !-f'; \
+		echo 'RewriteCond %{REQUEST_FILENAME} !-d'; \
+		echo 'RewriteRule . /index.php [L]'; \
+		echo ''; \
+		echo '# END WordPress'; \
+	} > /usr/src/wordpress/.htaccess; \
+	\
+	chown -R www-data:www-data /usr/src/wordpress; \
 # pre-create wp-content (and single-level children) for folks who want to bind-mount themes, etc so permissions are pre-created properly instead of root:root
 # wp-content/cache: https://github.com/docker-library/wordpress/issues/534#issuecomment-705733507
-	# mkdir wp-content; \
-	# for dir in /usr/src/wordpress/wp-content/*/ cache; do \
-	# 	dir="$(basename "${dir%/}")"; \
-	# 	mkdir "wp-content/$dir"; \
-	# done; \
-	# chown -R www-data:www-data wp-content; \
-	# chmod -R 777 wp-content
-
-# RUN mv "/usr/local/etc/php/php.ini-production" "/usr/local/etc/php/php.ini"
-
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+	mkdir wp-content; \
+	for dir in /usr/src/wordpress/wp-content/*/ cache; do \
+		dir="$(basename "${dir%/}")"; \
+		mkdir "wp-content/$dir"; \
+	done; \
+	chown -R www-data:www-data wp-content; \
+	chmod -R 777 wp-content
 
 VOLUME /var/www
 
-# COPY --chown=www-data:www-data wp-config-docker.php /usr/src/wordpress/
-# COPY docker-entrypoint.sh /usr/local/bin/
+COPY --chown=www-data:www-data wp-config-docker.php /usr/src/wordpress/
+COPY docker-entrypoint.sh /usr/local/bin/
 
-# ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN apt-get update && apt-get install -y magic-wormhole
 RUN apt-get update && apt-get install -y default-mysql-client
@@ -162,4 +157,4 @@ RUN apt-get update && apt-get install -y openssh-client
 RUN git config --global user.email "github-automation@jimthoburn.com"
 RUN git config --global user.name "Jim Thoburn (automation)"
 
-USER www-data:www-data
+CMD ["apache2-foreground"]
