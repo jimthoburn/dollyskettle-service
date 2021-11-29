@@ -43,7 +43,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Create a backup of MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-mysqldump -h $WORDPRESS_DB_HOST -u $WORDPRESS_DB_USER --password=$WORDPRESS_DB_PASSWORD --single-transaction --no-tablespaces --result-file=/var/www/git-wordpress/wordpress-database.sql --databases $WORDPRESS_DB_NAME
+mysqldump \
+  -h $WORDPRESS_DB_HOST \
+  -u $WORDPRESS_DB_USER \
+  --password=$WORDPRESS_DB_PASSWORD \
+  --single-transaction --no-tablespaces \
+  --result-file=/var/www/git-wordpress/wordpress-database.sql \
+  --databases $WORDPRESS_DB_NAME
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"

@@ -44,7 +44,9 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Import MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-mysql -h $WORDPRESS_DB_HOST -u $WORDPRESS_DB_USER \
+mysql \
+  -h $WORDPRESS_DB_HOST \
+  -u $WORDPRESS_DB_USER \
   --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
   < /var/www/git-wordpress/wordpress-database.sql
 
