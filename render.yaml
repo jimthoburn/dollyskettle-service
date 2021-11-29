@@ -1,5 +1,23 @@
 # https://render.com/docs/blueprint-spec
 previewsEnabled: true
+#
+# TRICKY: We can’t include the environment group here
+#         if we want to share it between blueprint instances
+# envVarGroups:
+# - name: dollyskettle-settings
+#   envVars:
+#     - key: SSH_KEY_PASSPHRASE
+#       sync: false # placeholder for a value to be added in the dashboard
+#
+#   NOTE: This is for documentation purposes and isn’t supported by Render
+#   secretFiles:
+#     - fileName: .htpasswd
+#       sync: false
+#     - fileName: id_ed25519
+#       sync: false
+#     - fileName: id_ed25519.pub
+#       sync: false
+#
 services:
 - type: web
   name: dollyskettle-wordpress
