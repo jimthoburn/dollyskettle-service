@@ -31,7 +31,7 @@ services:
   dockerfilePath: ./apache/Dockerfile
   dockerContext: ./apache
   initialDeployHook: "sh /usr/local/bin/wordpress-setup.sh"
-  autoDeploy: true
+  autoDeploy: false
   region: oregon
   plan: starter
   disk:

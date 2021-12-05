@@ -120,6 +120,7 @@ VOLUME /var/www
 
 USER www-data:www-data
 
-# RUN sh /usr/local/bin/wordpress-reset.sh
+# If WordPress has been set up, reset the content
+RUN (ls git-wordpress && sh /usr/local/bin/wordpress-reset.sh)
 
 CMD ["apache2-foreground"]
