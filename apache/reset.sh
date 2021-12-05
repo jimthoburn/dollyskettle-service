@@ -86,5 +86,5 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 rm /var/www/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Finished backing up"
+echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
