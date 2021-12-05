@@ -88,3 +88,6 @@ rm /var/www/html/.maintenance
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Hand off to the CMD
+exec "$@"
