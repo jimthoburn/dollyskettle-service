@@ -110,6 +110,7 @@ RUN apt-get update && apt-get install -y git
 RUN apt-get update && apt-get install -y git-lfs
 RUN apt-get update && apt-get install -y alpine-pico
 RUN apt-get update && apt-get install -y openssh-client
+RUN apt-get update && apt-get install -y cron
 
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
