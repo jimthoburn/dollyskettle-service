@@ -114,11 +114,10 @@ RUN apt-get update && apt-get install -y cron
 
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY reset.sh /usr/local/bin/wordpress-reset.sh
 
 VOLUME /var/www
 
 USER www-data:www-data
 
-ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -Eeuo pipefail
+#!/bin/sh
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting reset"
@@ -89,7 +88,3 @@ rm /var/www/html/.maintenance
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-# https://stackoverflow.com/questions/42117362/how-to-execute-scripts-after-docker-compose-up
-# "$@" will contain the "container/image command"
-exec "$@"
