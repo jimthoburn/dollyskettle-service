@@ -120,6 +120,4 @@ VOLUME /var/www
 
 USER www-data:www-data
 
-ENTRYPOINT ["/usr/local/bin/wordpress-reset.sh"]
-
-CMD ["apache2-foreground"]
+CMD ["apache2-foreground && sh /usr/local/bin/wordpress-reset.sh"]
