@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting reset"
