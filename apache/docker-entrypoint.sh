@@ -86,6 +86,15 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 rm /var/www/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Add health check"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+rm -rf /var/www/html/health
+mkdir /var/www/html/health
+mkdir /var/www/html/health/ready
+echo "<html><h1>Ready ✅</h1></html>" > /var/www/html/health/ready/index.html
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
