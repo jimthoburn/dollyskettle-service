@@ -11,6 +11,22 @@
 #       sync: false
 #     - key: GITHUB_REPOSITORY
 #       sync: false
+#     - key: REMOTE_WORDPRESS_DB_HOST
+#       sync: false
+#     - key: REMOTE_WORDPRESS_DB_USER
+#       sync: false
+#     - key: REMOTE_WORDPRESS_DB_PASSWORD
+#       sync: false
+#     - key: REMOTE_WORDPRESS_DB_NAME
+#       sync: false
+#     - key: REMOTE_WORDPRESS_SSH_HOST
+#       sync: false
+#     - key: REMOTE_WORDPRESS_SSH_USER
+#       sync: false
+#     - key: REMOTE_WORDPRESS_SSH_PASSWORD
+#       sync: false
+#     - key: REMOTE_WORDPRESS_FILE_PATH
+#       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
