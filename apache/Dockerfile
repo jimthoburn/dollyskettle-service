@@ -83,6 +83,18 @@ RUN { \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
 
+# Increase the max upload size and time
+# https://stackoverflow.com/questions/13383806/what-are-the-ini-files-in-etc-php5-conf-d-folder-for
+# https://stackoverflow.com/questions/2184513/change-the-maximum-upload-file-size
+RUN { \
+		# This sets the maximum time in seconds a script is allowed to run \
+		echo 'max_execution_time = 300'; \
+		# Maximum allowed size for uploaded files. \
+		echo 'upload_max_filesize = 64M'; \
+		# Must be greater than or equal to upload_max_filesize \
+		echo 'post_max_size = 64M'; \
+	} > /usr/local/etc/php/conf.d/increase-max-upload.ini
+
 RUN set -eux; \
 	a2enmod rewrite expires; \
 	\
