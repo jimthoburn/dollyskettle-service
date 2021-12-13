@@ -81,10 +81,14 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # lftp sftp://user:password@server.org:22 -e 'mirror --verbose --use-pget-n=8 -c /remote/path /local/path'
 #
 # https://askubuntu.com/questions/61429/how-do-i-execute-ftp-commands-on-one-line
-# -e will keep you connected unless you issue a quit (or exit)
-# --continue continue a mirror job if possible
-#
-lftp "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22" -e "mirror --verbose --continue --ignore-time $REMOTE_WORDPRESS_FILE_PATH /var/www/git-wordpress/html; exit;"
+# `-e` will keep you connected unless you issue a quit (or exit)
+# `--continue` continue a mirror job if possible
+# `--ignore-time` ignore timestamps when deciding which files have changed
+(
+ echo connect "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22"
+ echo mirror --verbose --continue --ignore-time "$REMOTE_WORDPRESS_FILE_PATH/wp-content/themes/twentytwenty" "/var/www/git-wordpress/html/wp-content/themes/twentytwenty"
+ echo bye
+) | lftp -f /dev/stdin
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"
