@@ -99,7 +99,7 @@ RUN set -eux; \
 	a2enmod rewrite expires; \
 	\
 # https://stackoverflow.com/questions/8378232/how-do-i-call-a-local-shell-script-from-a-web-server
-	a2enmod cgi;
+	a2enmod cgi; \
 	\
 # https://httpd.apache.org/docs/2.4/mod/mod_remoteip.html
 	a2enmod remoteip; \
