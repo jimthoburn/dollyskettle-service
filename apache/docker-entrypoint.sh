@@ -89,16 +89,5 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Starting cron job"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-env >> /etc/environment
-
-# start cron
-# https://stackoverflow.com/questions/46235982/why-doesnt-service-cron-start-work-within-the-docker-file
-# https://github.com/renskiy/cron-docker-image/blob/master/debian/start-cron
-service cron start
-
 # Hand off to the CMD
 exec "$@"
