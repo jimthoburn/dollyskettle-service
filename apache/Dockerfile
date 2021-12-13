@@ -98,6 +98,9 @@ RUN { \
 RUN set -eux; \
 	a2enmod rewrite expires; \
 	\
+# https://stackoverflow.com/questions/8378232/how-do-i-call-a-local-shell-script-from-a-web-server
+	a2enmod cgi;
+	\
 # https://httpd.apache.org/docs/2.4/mod/mod_remoteip.html
 	a2enmod remoteip; \
 	{ \
@@ -127,7 +130,10 @@ RUN apt-get update && apt-get install -y lftp
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
 COPY remote-backup.sh /usr/local/bin/remote-backup.sh
-COPY remote-backup.sh /usr/lib/cgi-bin/$REMOTE_BACKUP_HOOK_ID.sh
+
+COPY remote-backup.sh "/usr/lib/cgi-bin/$REMOTE_BACKUP_HOOK_ID.sh"
+# Let everyone execute
+RUN chmod a+x "/usr/lib/cgi-bin/$REMOTE_BACKUP_HOOK_ID.sh"
 
 VOLUME /var/www
 
