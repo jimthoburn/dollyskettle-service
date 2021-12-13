@@ -109,3 +109,5 @@ services:
   env: python
   schedule: "0 22 * * *"
   startCommand: ./backup/start.sh
+  envVars:
+  - fromGroup: dollyskettle-settings
