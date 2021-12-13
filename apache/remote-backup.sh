@@ -84,7 +84,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # -e will keep you connected unless you issue a quit (or exit)
 # --continue continue a mirror job if possible
 #
-lftp "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22" -e "mirror --verbose --continue $REMOTE_WORDPRESS_FILE_PATH /var/www/git-wordpress/html; exit;"
+lftp "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22" -e "mirror --verbose --continue --ignore-time $REMOTE_WORDPRESS_FILE_PATH /var/www/git-wordpress/html; exit;"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"
@@ -98,6 +98,12 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
 git add .
+
+# Reset config files meant for the remote host
+# https://stackoverflow.com/questions/7147270/hard-reset-of-a-single-file
+git checkout HEAD -- html/.htaccess
+git checkout HEAD -- html/wp-config.php
+
 git commit -m "Automatic commit with the latest content"
 git pull --rebase
 
