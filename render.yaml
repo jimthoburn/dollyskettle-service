@@ -27,6 +27,8 @@
 #       sync: false
 #     - key: REMOTE_WORDPRESS_FILE_PATH
 #       sync: false
+#     - key: REPLICA_DEPLOY_HOOK
+#       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:

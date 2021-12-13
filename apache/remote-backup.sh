@@ -144,5 +144,12 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git push origin
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Update replica"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://render.com/docs/deploy-hooks
+curl -X POST -d '{}' "$REPLICA_DEPLOY_HOOK"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished backing up"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
