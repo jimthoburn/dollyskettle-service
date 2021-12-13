@@ -126,6 +126,7 @@ RUN apt-get update && apt-get install -y lftp
 
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
+COPY remote-backup.sh /usr/local/bin/remote-backup.sh
 
 VOLUME /var/www
 
