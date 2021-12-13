@@ -56,28 +56,90 @@ echo "<?php \$upgrading = time(); ?>" > /var/www/git-wordpress/html/.maintenance
 git pull --rebase --autostash
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Delete MySQL database"
+echo "Get latest WordPress database from remote host"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Open an SSH tunnel to a remote host and use to download the latest database
+#
+# https://stackoverflow.com/questions/2989724/how-to-mysqldump-remote-db-from-local-machine
+# https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
+
+eval "$(ssh-agent -s)"
+
+# 1. `-L` Open an SSH tunnel to user@remote-host
+# 2. `-f` Fork the connection so a local prompt is used
+# 3. `-4` Use ipv4
+# 4. Forward requests from local computer (127.0.0.1:3310) to remote-database-host:3306
+# 5. `sleep 10` Automatically close the tunnel after 10 seconds, or after the mysqldump is finished
+#
+# https://www.g-loaded.eu/2006/11/24/auto-closing-ssh-tunnels/
+# https://serverfault.com/questions/444295/ssh-tunnel-bind-cannot-assign-requested-address
+ssh \
+  -4 \
+  -f -L \
+  3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
+  $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
+  sleep 10; \
+mysqldump \
+  -P 3310 \
+  -h 127.0.0.1 \
+  -u $REMOTE_WORDPRESS_DB_USER \
+  --password=$REMOTE_WORDPRESS_DB_PASSWORD \
+  --single-transaction --no-tablespaces \
+  --result-file=/var/www/git-wordpress/wordpress-database.sql \
+  $REMOTE_WORDPRESS_DB_NAME
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Get latest WordPress files from remote host with LFTP"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://superuser.com/questions/40281/how-do-i-get-an-entire-directory-in-sftp#answer-726866
+# lftp sftp://user:password@server.org:22 -e 'mirror --verbose --use-pget-n=8 -c /remote/path /local/path'
+#
+# https://askubuntu.com/questions/61429/how-do-i-execute-ftp-commands-on-one-line
+# `-e` will keep you connected unless you issue a quit (or exit)
+# `--continue` continue a mirror job if possible
+# `--ignore-time` ignore timestamps when deciding which files have changed
+(
+ echo connect "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22"
+ echo mirror --verbose --continue --ignore-time "$REMOTE_WORDPRESS_FILE_PATH/wp-content/themes/twentytwenty" "/var/www/git-wordpress/html/wp-content/themes/twentytwenty"
+ echo bye
+) | lftp -f /dev/stdin
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check changed files into the repository"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+eval "$(ssh-agent -s)"
+git add .
+
+# Reset config files meant for the remote host
+# https://stackoverflow.com/questions/7147270/hard-reset-of-a-single-file
+git checkout HEAD -- html/.htaccess
+git checkout HEAD -- html/wp-config.php
+
+git commit -m "Automatic commit with the latest content"
+git pull --rebase
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Update local MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 echo "drop database wordpress; create database wordpress;" > delete-wordpress.sql
 
 mysql \
-  -h $WORDPRESS_DB_HOST \
-  -u $WORDPRESS_DB_USER \
-  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
-  < /var/www/git-wordpress/delete-wordpress.sql
+-h $WORDPRESS_DB_HOST \
+-u $WORDPRESS_DB_USER \
+--password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+< /var/www/git-wordpress/delete-wordpress.sql
 
 rm delete-wordpress.sql
 
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Import MySQL database"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
 mysql \
-  -h $WORDPRESS_DB_HOST \
-  -u $WORDPRESS_DB_USER \
-  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
-  < /var/www/git-wordpress/wordpress-database.sql
+-h $WORDPRESS_DB_HOST \
+-u $WORDPRESS_DB_USER \
+--password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+< /var/www/git-wordpress/wordpress-database.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"
@@ -86,7 +148,20 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 rm /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Finished reseting"
+echo "Push commits to remote repository"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git push origin
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Update replica"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://render.com/docs/deploy-hooks
+curl -X POST -d '{}' "$REPLICA_DEPLOY_HOOK"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Finished backing up"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # Hand off to the CMD

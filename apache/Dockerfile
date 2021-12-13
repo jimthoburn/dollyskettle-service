@@ -129,11 +129,6 @@ RUN apt-get update && apt-get install -y lftp
 
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
-COPY remote-backup.sh /usr/local/bin/remote-backup.sh
-
-COPY remote-backup.sh "/usr/lib/cgi-bin/$REMOTE_BACKUP_HOOK_ID.sh"
-# Let everyone execute
-RUN chmod a+x "/usr/lib/cgi-bin/$REMOTE_BACKUP_HOOK_ID.sh"
 
 VOLUME /var/www
 

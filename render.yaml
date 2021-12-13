@@ -27,9 +27,7 @@
 #       sync: false
 #     - key: REMOTE_WORDPRESS_FILE_PATH
 #       sync: false
-#     - key: REMOTE_BACKUP_HOOK_HOST
-#       sync: false
-#     - key: REMOTE_BACKUP_HOOK_ID
+#     - key: REMOTE_BACKUP_DEPLOY_HOOK
 #       sync: false
 #     - key: REPLICA_DEPLOY_HOOK
 #       sync: false
