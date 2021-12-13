@@ -103,11 +103,11 @@ services:
     generateValue: true
   - key: MYSQL_ROOT_PASSWORD
     generateValue: true
-# A Python cron job that runs at 10 p.m.
+# A Python cron job that runs at 5 a.m. UTC
 - type: cron
   name: dollyskettle-backup
   env: python
-  schedule: "0 22 * * *"
+  schedule: "0 5 * * *"
   startCommand: ./backup/start.sh
   envVars:
   - fromGroup: dollyskettle-settings
