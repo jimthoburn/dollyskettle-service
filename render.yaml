@@ -27,6 +27,10 @@
 #       sync: false
 #     - key: REMOTE_WORDPRESS_FILE_PATH
 #       sync: false
+#     - key: REMOTE_BACKUP_HOOK_HOST
+#       sync: false
+#     - key: REMOTE_BACKUP_HOOK_ID
+#       sync: false
 #     - key: REPLICA_DEPLOY_HOOK
 #       sync: false
 #
@@ -99,3 +103,9 @@ services:
     generateValue: true
   - key: MYSQL_ROOT_PASSWORD
     generateValue: true
+# A Python cron job that runs at 10 p.m.
+- type: cron
+  name: dollyskettle-backup
+  env: python
+  schedule: "0 22 * * *"
+  startCommand: ./backup/start.sh
