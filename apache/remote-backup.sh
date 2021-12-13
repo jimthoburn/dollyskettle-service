@@ -37,32 +37,33 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site in maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
+echo "<?php \$upgrading = time(); ?>" > /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Get latest WordPress database from remote host"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# Open an SSH tunnel to a remote host and download the latest database
+# Open an SSH tunnel to a remote host and use to download the latest database
 #
 # https://stackoverflow.com/questions/2989724/how-to-mysqldump-remote-db-from-local-machine
 # https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
 
 eval "$(ssh-agent -s)"
 
-# 1. “L” Open an SSH tunnel to user@remote-host
-# 2. Forward requests from local computer (127.0.0.1:3310) to remote-database-host:3306
-# 3. “-f” Fork the connection so a local prompt is used
-# 4. “sleep 10” Automatically close the tunnel after 10 seconds, or after the mysqldump is finished
+# 1. `-L` Open an SSH tunnel to user@remote-host
+# 2. `-f` Fork the connection so a local prompt is used
+# 3. `-4` Use ipv4
+# 4. Forward requests from local computer (127.0.0.1:3310) to remote-database-host:3306
+# 5. `sleep 10` Automatically close the tunnel after 10 seconds, or after the mysqldump is finished
 #
 # https://www.g-loaded.eu/2006/11/24/auto-closing-ssh-tunnels/
+# https://serverfault.com/questions/444295/ssh-tunnel-bind-cannot-assign-requested-address
 ssh \
+  -4 \
   -f -L \
   3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
   $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
   sleep 10; \
-  
-# Use the SSH tunnel to run `mysqldump`
 mysqldump \
   -P 3310 \
   -h 127.0.0.1 \
@@ -83,7 +84,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # -e will keep you connected unless you issue a quit (or exit)
 # --continue continue a mirror job if possible
 #
-lftp "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22" -e "mirror --verbose --continue $REMOTE_WORDPRESS_FILE_PATH /var/www/html; exit;"
+lftp "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22" -e "mirror --verbose --continue $REMOTE_WORDPRESS_FILE_PATH /var/www/git-wordpress/html; exit;"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"
@@ -124,7 +125,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-rm /var/www/html/.maintenance
+rm /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Push commits to remote repository"

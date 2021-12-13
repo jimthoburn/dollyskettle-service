@@ -37,7 +37,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site in maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
+echo "<?php \$upgrading = time(); ?>" > /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Create a backup of MySQL database"
@@ -70,7 +70,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-rm /var/www/html/.maintenance
+rm /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Push commits to remote repository"

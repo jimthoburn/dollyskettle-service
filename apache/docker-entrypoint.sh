@@ -37,7 +37,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site in maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
+echo "<?php \$upgrading = time(); ?>" > /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"
@@ -52,7 +52,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 eval "$(ssh-agent -s)"
 git reset --hard
 git clean -fdx
-echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
+echo "<?php \$upgrading = time(); ?>" > /var/www/git-wordpress/html/.maintenance
 git pull --rebase --autostash
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -83,7 +83,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-rm /var/www/html/.maintenance
+rm /var/www/git-wordpress/html/.maintenance
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
