@@ -102,7 +102,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # `--ignore-time` ignore timestamps when deciding which files have changed
 (
  echo connect "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22"
- echo mirror --verbose --continue --ignore-time "$REMOTE_WORDPRESS_FILE_PATH/wp-content/themes/twentytwenty" "/var/www/git-wordpress/html/wp-content/themes/twentytwenty"
+ echo mirror --verbose --continue --ignore-time "$REMOTE_WORDPRESS_FILE_PATH" "/var/www/git-wordpress/html"
  echo bye
 ) | lftp -f /dev/stdin
 
