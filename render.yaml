@@ -57,7 +57,7 @@ services:
   disk:
     name: wordpress
     mountPath: /var/www
-    sizeGB: 25
+    sizeGB: 35
   envVars:
   - fromGroup: dollyskettle-settings
   - key: WORDPRESS_DB_HOST
