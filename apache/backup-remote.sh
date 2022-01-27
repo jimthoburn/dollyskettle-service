@@ -84,9 +84,12 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # `-e` will keep you connected unless you issue a quit (or exit)
 # `--continue` continue a mirror job if possible
 # `--ignore-time` ignore timestamps when deciding which files have changed
+# `ftp:use-mdtm-overloaded` preserve a file's original date and time information after file transfer
+# https://stackoverflow.com/questions/3892147/how-to-preserve-file-modification-time-with-lftp
+# https://support.solarwinds.com/SuccessCenter/s/article/MDTM-FTP-command?language=en_US
 (
  echo connect "sftp://$REMOTE_WORDPRESS_SSH_USER:$REMOTE_WORDPRESS_SSH_PASSWORD@$REMOTE_WORDPRESS_SSH_HOST:22"
- echo mirror --verbose --continue --ignore-time "$REMOTE_WORDPRESS_FILE_PATH" "/var/www/git-wordpress/html"
+ echo mirror --verbose --ignore-time "$REMOTE_WORDPRESS_FILE_PATH" "/var/www/git-wordpress/html"
  echo bye
 ) | lftp -f /dev/stdin
 
