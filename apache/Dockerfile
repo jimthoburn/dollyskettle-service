@@ -132,6 +132,8 @@ COPY backup.sh /usr/local/bin/wordpress-backup.sh
 COPY backup-remote.sh /usr/local/bin/wordpress-backup-remote.sh
 COPY reset.sh /usr/local/bin/wordpress-reset.sh
 
+COPY docker-entrypoint-environment.sh /usr/local/bin/docker-entrypoint-environment.sh
+
 VOLUME /var/www
 
 COPY docker-entrypoint.sh /usr/local/bin/

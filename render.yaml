@@ -29,7 +29,33 @@
 #       sync: false
 #     - key: REMOTE_BACKUP_DEPLOY_HOOK
 #       sync: false
+#     - key: REMOTE_BACKUP_API_TOKEN
+#       sync: false
+#     - key: REMOTE_BACKUP_MYSQL_SERVICE_ID
+#       sync: false
+#     - key: REMOTE_BACKUP_WORDPRESS_SERVICE_ID
+#       sync: false
+#     - key: REMOTE_URL
+#       sync: false
+#     - key: REMOTE_URL_AUTHORIZATION_BASIC
+#       sync: false
 #     - key: REPLICA_DEPLOY_HOOK
+#       sync: false
+#     - key: REPLICA_API_TOKEN
+#       sync: false
+#     - key: REPLICA_MYSQL_SERVICE_ID
+#       sync: false
+#     - key: REPLICA_WORDPRESS_SERVICE_ID
+#       sync: false
+#     - key: REPLICA_URL
+#       sync: false
+#     - key: REPLICA_URL_AUTHORIZATION_BASIC
+#       sync: false
+#     - key: BACKUP_STATUS_DEPLOY_HOOK
+#       sync: false
+#     - key: BACKUP_STATUS_API_TOKEN
+#       sync: false
+#     - key: BACKUP_STATUS_SERVICE_ID
 #       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
@@ -107,5 +133,13 @@ services:
   env: python
   schedule: "0 5 * * *"
   startCommand: ./backup/start.sh
+  envVars:
+  - fromGroup: dollyskettle-settings  
+- type: web
+  name: dollyskettle-backup-status
+  env: static
+  autoDeploy: false
+  buildCommand: sh ./backup/test.sh
+  staticPublishPath: ./backup-test-results
   envVars:
   - fromGroup: dollyskettle-settings
