@@ -136,7 +136,7 @@ COPY docker-entrypoint-environment.sh /usr/local/bin/docker-entrypoint-environme
 VOLUME /var/www
 
 # Avoid “Operation not permitted” when running setup.sh
-RUN chown www-data /var/www/html
+RUN chown www-data:www-data /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
