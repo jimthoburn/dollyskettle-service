@@ -86,6 +86,8 @@ services:
     sizeGB: 45
   envVars:
   - fromGroup: dollyskettle-settings
+  - key: WORDPRESS_ENVIRONMENT
+    sync: false
   - key: WORDPRESS_DB_HOST
     fromService:
       name: dollyskettle-mysql
@@ -119,6 +121,8 @@ services:
     mountPath: /var/lib/mysql
     sizeGB: 1
   envVars:
+  - key: WORDPRESS_ENVIRONMENT
+    sync: false
   - key: MYSQL_DATABASE
     value: wordpress
   - key: MYSQL_USER
@@ -134,7 +138,9 @@ services:
   schedule: "0 5 * * *"
   startCommand: ./backup/start.sh
   envVars:
-  - fromGroup: dollyskettle-settings  
+  - fromGroup: dollyskettle-settings
+  - key: WORDPRESS_ENVIRONMENT
+    sync: false
 - type: web
   name: dollyskettle-backup-status
   env: static
@@ -143,3 +149,5 @@ services:
   staticPublishPath: ./backup-test-results
   envVars:
   - fromGroup: dollyskettle-settings
+  - key: WORDPRESS_ENVIRONMENT
+    sync: false
