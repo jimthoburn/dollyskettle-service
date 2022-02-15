@@ -1,0 +1,80 @@
+# https://render.com/docs/blueprint-spec
+#
+# TRICKY: We can’t include the environment group here
+#         if we want to share it between blueprint instances
+# envVarGroups:
+# - name: wordpress-settings
+#   envVars:
+#     - key: GITHUB_USER_EMAIL
+#       sync: false
+#     - key: GITHUB_USER_NAME
+#       sync: false
+#     - key: GITHUB_REPOSITORY
+#       sync: false
+#
+#   NOTE: This is for documentation purposes and isn’t supported by Render
+#   secretFiles:
+#     - fileName: id_ed25519
+#       sync: false
+#     - fileName: id_ed25519.pub
+#       sync: false
+#     - fileName: known_hosts
+#       sync: false
+#
+services:
+- type: web
+  name: wordpress
+  env: docker
+  dockerfilePath: ./apache/Dockerfile
+  dockerContext: ./apache
+  initialDeployHook: "sh /usr/local/bin/wordpress-setup.sh"
+  autoDeploy: false
+  region: oregon
+  plan: starter
+  disk:
+    name: wordpress
+    mountPath: /var/www
+    sizeGB: 1
+  envVars:
+  - fromGroup: wordpress-settings
+  - key: WORDPRESS_DB_HOST
+    fromService:
+      name: wordpress-mysql
+      type: pserv
+      property: host
+  - key: WORDPRESS_DB_NAME
+    fromService:
+      name: wordpress-mysql
+      type: pserv
+      envVarKey: MYSQL_DATABASE
+  - key: WORDPRESS_DB_USER
+    fromService:
+      name: wordpress-mysql
+      type: pserv
+      envVarKey: MYSQL_USER
+  - key: WORDPRESS_DB_PASSWORD
+    fromService:
+      name: wordpress-mysql
+      type: pserv
+      envVarKey: MYSQL_PASSWORD
+- type: pserv
+  name: wordpress-mysql
+  dockerfilePath: ./mysql/Dockerfile
+  dockerContext: ./mysql
+  env: docker
+  autoDeploy: false
+  region: oregon
+  plan: starter
+  disk:
+    name: mysql
+    mountPath: /var/lib/mysql
+    sizeGB: 0.25
+  envVars:
+  - key: MYSQL_DATABASE
+    value: wordpress
+  - key: MYSQL_USER
+    value: wordpress
+  - key: MYSQL_PASSWORD
+    generateValue: true
+  - key: MYSQL_ROOT_PASSWORD
+    generateValue: true
