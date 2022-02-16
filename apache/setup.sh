@@ -54,7 +54,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Replace default HTML folder"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-rm -d /var/www/html
+rm -df /var/www/html
 ln -s /var/www/git-wordpress/html /var/www/html
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
