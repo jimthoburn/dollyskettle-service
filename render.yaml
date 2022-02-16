@@ -11,6 +11,11 @@
 #       sync: false
 #     - key: GITHUB_REPOSITORY
 #       sync: false
+
+# - name: dollyskettle-remote-baclup
+#   envVars:
+#     - key: WORDPRESS_ENVIRONMENT
+#       sync: false
 #     - key: REMOTE_WORDPRESS_DB_HOST
 #       sync: false
 #     - key: REMOTE_WORDPRESS_DB_USER
@@ -86,8 +91,6 @@ services:
     sizeGB: 30
   envVars:
   - fromGroup: dollyskettle-settings
-  - key: WORDPRESS_ENVIRONMENT
-    sync: false
   - key: WORDPRESS_DB_HOST
     fromService:
       name: dollyskettle-mysql
@@ -121,8 +124,6 @@ services:
     mountPath: /var/lib/mysql
     sizeGB: 1
   envVars:
-  - key: WORDPRESS_ENVIRONMENT
-    sync: false
   - key: MYSQL_DATABASE
     value: wordpress
   - key: MYSQL_USER
@@ -139,8 +140,6 @@ services:
   startCommand: ./backup/start.sh
   envVars:
   - fromGroup: dollyskettle-settings
-  - key: WORDPRESS_ENVIRONMENT
-    sync: false
 - type: web
   name: dollyskettle-backup-status
   env: static
@@ -149,5 +148,3 @@ services:
   staticPublishPath: ./backup-test-results
   envVars:
   - fromGroup: dollyskettle-settings
-  - key: WORDPRESS_ENVIRONMENT
-    sync: false
