@@ -119,9 +119,11 @@ RUN set -eux; \
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+RUN apt-get update && apt-get install -y magic-wormhole
 RUN apt-get update && apt-get install -y default-mysql-client
 RUN apt-get update && apt-get install -y git
 RUN apt-get update && apt-get install -y git-lfs
+RUN apt-get update && apt-get install -y alpine-pico
 
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
