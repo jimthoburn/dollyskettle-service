@@ -186,5 +186,3 @@ services:
     name: root
     mountPath: /root
     sizeGB: 30
-  envVars:
-  - fromGroup: dollyskettle-publish
