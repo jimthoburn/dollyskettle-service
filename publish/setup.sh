@@ -18,6 +18,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 netlify lm:install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Use Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Run this command to use Netlify Large Media in your current shell
+source /root/.config/netlify/helper/path.bash.inc
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Configure Git"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 

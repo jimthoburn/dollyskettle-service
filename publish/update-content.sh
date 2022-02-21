@@ -34,6 +34,20 @@ chmod 600 /root/.ssh/id_ed25519.pub
 chmod 600 /root/.ssh/known_hosts
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Install Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://github.com/netlify/netlify-credential-helper
+netlify lm:install
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Use Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Run this command to use Netlify Large Media in your current shell
+source /root/.config/netlify/helper/path.bash.inc
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
@@ -44,6 +58,12 @@ echo "Switch to branch automatically-cached-content"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git switch automatically-cached-content
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Install dependencies"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+npm install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Download the latest API data and images"
