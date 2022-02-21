@@ -115,24 +115,28 @@ mysqldump \
 # --extended-insert=FALSE
 # Dump data in separate insert statements, so you can split the individual tables into smaller files
 
+backup_mysql_table() {
+  ssh \
+    -4 \
+    -f -L \
+    3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
+    $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
+    sleep 10; \
+  mysqldump \
+    -P 3310 \
+    -h 127.0.0.1 \
+    -u $REMOTE_WORDPRESS_DB_USER \
+    --password=$REMOTE_WORDPRESS_DB_PASSWORD \
+    --single-transaction --no-tablespaces \
+    --no-create-info=TRUE \
+    --extended-insert=FALSE \
+    --result-file="/var/www/git-wordpress/wordpress-database/$1.sql" \
+    $REMOTE_WORDPRESS_DB_NAME $1
+}
+
 for tableName in 'wp_commentmeta' 'wp_comments' 'wp_links' 'wp_options' 'wp_postmeta' 'wp_posts' 'wp_term_relationships' 'wp_term_taxonomy' 'wp_termmeta' 'wp_terms' 'wp_usermeta' 'wp_users'; \
    do echo $tableName; \
-     ssh \
-       -4 \
-       -f -L \
-       3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
-       $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
-       sleep 10; \
-     mysqldump \
-       -P 3310 \
-       -h 127.0.0.1 \
-       -u $REMOTE_WORDPRESS_DB_USER \
-       --password=$REMOTE_WORDPRESS_DB_PASSWORD \
-       --single-transaction --no-tablespaces \
-       --no-create-info=TRUE \
-       --extended-insert=FALSE \
-       --result-file="/var/www/git-wordpress/wordpress-database/$tableName.sql" \
-       $REMOTE_WORDPRESS_DB_NAME \
+     backup_mysql_table $tableName \
    ; \
    done
 
