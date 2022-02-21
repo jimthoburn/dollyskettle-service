@@ -18,4 +18,4 @@ The basic steps to get it working are:
 
 The “setup” and “backup” scripts will “clone” and “push” to your [content repository](https://github.com/jimthoburn/wordpress-content-example), respectively.
 
-After you run the setup script in the shell, a `~/known_hosts` file should be generated in root directly. You can copy this to your environment group (see step #4) so it will automatically be available for other instances of your blueprint, like preview environments.
+After you run the setup script in the shell, a `~/known_hosts` file should be generated in root directly. You can copy this to your environment group (see step #4) so it will automatically be available for other instances of your blueprint, like preview environments (to avoid prompts when running setup.sh automatically).
