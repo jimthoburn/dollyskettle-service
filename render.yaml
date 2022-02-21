@@ -175,7 +175,10 @@ services:
   - fromGroup: dollyskettle-settings
 - type: worker
   name: dollyskettle-publish
-  env: node
+  env: docker
+  dockerfilePath: ./apache/Dockerfile
+  dockerContext: ./apache
+  initialDeployHook: "sh /usr/local/bin/setup.sh"
   autoDeploy: false
   region: oregon
   plan: starter

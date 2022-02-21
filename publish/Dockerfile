@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y alpine-pico
 RUN apt-get update && apt-get install -y openssh-client
 RUN apt-get update && apt-get install -y lftp
 
+COPY setup.sh /usr/local/bin/setup.sh
 COPY update-content.sh /usr/local/bin/update-content.sh
 
 VOLUME /root
