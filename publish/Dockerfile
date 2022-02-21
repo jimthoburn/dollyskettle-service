@@ -19,4 +19,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 # https://stackoverflow.com/questions/25775266/how-to-keep-docker-container-running-after-starting-services#answer-42873832
-CMD ["sleep", "infinity"]
+# CMD ["sleep", "infinity"]
+# CMD ["tail", "-f", "/dev/null"]
+
+CMD /bin/bash -c 'tail -f /dev/null'
