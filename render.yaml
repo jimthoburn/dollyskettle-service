@@ -176,8 +176,8 @@ services:
 - type: worker
   name: dollyskettle-publish
   env: docker
-  dockerfilePath: ./apache/Dockerfile
-  dockerContext: ./apache
+  dockerfilePath: ./publish/Dockerfile
+  dockerContext: ./publish
   initialDeployHook: "sh /usr/local/bin/setup.sh"
   autoDeploy: false
   region: oregon
