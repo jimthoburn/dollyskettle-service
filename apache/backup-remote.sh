@@ -134,11 +134,23 @@ backup_mysql_table() {
     $REMOTE_WORDPRESS_DB_NAME $1
 }
 
-for tableName in 'wp_commentmeta' 'wp_comments' 'wp_links' 'wp_options' 'wp_postmeta' 'wp_posts' 'wp_term_relationships' 'wp_term_taxonomy' 'wp_termmeta' 'wp_terms' 'wp_usermeta' 'wp_users'; \
-   do echo $tableName; \
-     backup_mysql_table $tableName \
-   ; \
-   done
+for tableName in \
+    'wp_commentmeta' \
+    'wp_comments' \
+    'wp_links' \
+    'wp_options' \
+    'wp_postmeta' \
+    'wp_posts' \
+    'wp_term_relationships' \
+    'wp_term_taxonomy' \
+    'wp_termmeta' \
+    'wp_terms' \
+    'wp_usermeta'\
+    'wp_users'; \
+  do
+    echo $tableName; \
+    backup_mysql_table $tableName; \
+  done
 
 # Split `wp-posts` into two smaller files. Splitting at 15,000 lines will make
 # the first file just under 100 MB, which is the limit for GitHub.
