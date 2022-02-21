@@ -66,20 +66,20 @@ eval "$(ssh-agent -s)"
 # https://dba.stackexchange.com/questions/271981/access-denied-you-need-at-least-one-of-the-process-privileges-for-this-ope#answer-274460
 # `--single-transaction` Prevents the database from changing while the dump is in progress
 # https://stackoverflow.com/questions/41683158/mysqldump-single-transaction-option#answer-41704768
-ssh \
-  -4 \
-  -f -L \
-  3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
-  $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
-  sleep 10; \
-mysqldump \
-  -P 3310 \
-  -h 127.0.0.1 \
-  -u $REMOTE_WORDPRESS_DB_USER \
-  --password=$REMOTE_WORDPRESS_DB_PASSWORD \
-  --single-transaction --no-tablespaces \
-  --result-file=/var/www/git-wordpress/wordpress-database.sql \
-  $REMOTE_WORDPRESS_DB_NAME
+# ssh \
+#   -4 \
+#   -f -L \
+#   3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
+#   $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
+#   sleep 10; \
+# mysqldump \
+#   -P 3310 \
+#   -h 127.0.0.1 \
+#   -u $REMOTE_WORDPRESS_DB_USER \
+#   --password=$REMOTE_WORDPRESS_DB_PASSWORD \
+#   --single-transaction --no-tablespaces \
+#   --result-file=/var/www/git-wordpress/wordpress-database.sql \
+#   $REMOTE_WORDPRESS_DB_NAME
 
 # Make a backup with smaller files
 # https://superuser.com/questions/194851/how-do-i-split-a-large-mysql-backup-file-into-multiple-files#answer-194857
