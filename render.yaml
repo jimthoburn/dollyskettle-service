@@ -186,6 +186,5 @@ services:
     name: root
     mountPath: /root
     sizeGB: 30
-  startCommand: ./publish/update-cached-content.sh
   envVars:
   - fromGroup: dollyskettle-publish
