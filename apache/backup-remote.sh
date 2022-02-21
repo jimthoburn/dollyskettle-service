@@ -132,7 +132,7 @@ for tableName in 'wp_commentmeta' 'wp_comments' 'wp_links' 'wp_options' 'wp_post
        --no-create-info=TRUE \
        --extended-insert=FALSE \
        --result-file="/var/www/git-wordpress/wordpress-database/$tableName.sql" \
-       $REMOTE_WORDPRESS_DB_NAME
+       $REMOTE_WORDPRESS_DB_NAME \
    ; \
    done
 
