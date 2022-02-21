@@ -56,8 +56,16 @@ eval "$(ssh-agent -s)"
 # 4. Forward requests from local computer (127.0.0.1:3310) to remote-database-host:3306
 # 5. `sleep 10` Automatically close the tunnel after 10 seconds, or after the mysqldump is finished
 #
+# `3306` is the default port for MySQL
+# `3310` is an abritrary port used for forwarding the requests to MySQL
+#
 # https://www.g-loaded.eu/2006/11/24/auto-closing-ssh-tunnels/
 # https://serverfault.com/questions/444295/ssh-tunnel-bind-cannot-assign-requested-address
+#
+# `--no-tablespaces` Avoids a permission error
+# https://dba.stackexchange.com/questions/271981/access-denied-you-need-at-least-one-of-the-process-privileges-for-this-ope#answer-274460
+# `--single-transaction` Prevents the database from changing while the dump is in progress
+# https://stackoverflow.com/questions/41683158/mysqldump-single-transaction-option#answer-41704768
 ssh \
   -4 \
   -f -L \
@@ -72,6 +80,67 @@ mysqldump \
   --single-transaction --no-tablespaces \
   --result-file=/var/www/git-wordpress/wordpress-database.sql \
   $REMOTE_WORDPRESS_DB_NAME
+
+# Make a backup with smaller files
+# https://superuser.com/questions/194851/how-do-i-split-a-large-mysql-backup-file-into-multiple-files#answer-194857
+
+rm -rf /var/www/git-wordpress/wordpress-database/
+mkdir /var/www/git-wordpress/wordpress-database/
+
+# Back up the schema
+# --no-data
+# Do not write any table row information (that is, do not dump table contents). This is useful if you want to dump
+# only the CREATE TABLE statement for the table (for example, to create an empty copy of the table by loading the
+# dump file).
+
+ssh \
+  -4 \
+  -f -L \
+  3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
+  $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
+  sleep 10; \
+mysqldump \
+  -P 3310 \
+  -h 127.0.0.1 \
+  -u $REMOTE_WORDPRESS_DB_USER \
+  --password=$REMOTE_WORDPRESS_DB_PASSWORD \
+  --single-transaction --no-tablespaces \
+  --no-data \
+  --result-file=/var/www/git-wordpress/wordpress-database/schema.sql \
+  $REMOTE_WORDPRESS_DB_NAME
+
+# Back up the individual tables
+# --no-create-info=TRUE
+# Dump only the data. Skip writing CREATE TABLE statements.
+# --extended-insert=FALSE
+# Dump data in separate insert statements, so you can split the individual tables into smaller files
+
+for tableName in 'wp_commentmeta' 'wp_comments' 'wp_links' 'wp_options' 'wp_postmeta' 'wp_posts' 'wp_term_relationships' 'wp_term_taxonomy' 'wp_termmeta' 'wp_terms' 'wp_usermeta' 'wp_users'; \
+   do echo $tableName; \
+     ssh \
+       -4 \
+       -f -L \
+       3310:$REMOTE_WORDPRESS_DB_HOST:3306 \
+       $REMOTE_WORDPRESS_SSH_USER@$REMOTE_WORDPRESS_SSH_HOST \
+       sleep 10; \
+     mysqldump \
+       -P 3310 \
+       -h 127.0.0.1 \
+       -u $REMOTE_WORDPRESS_DB_USER \
+       --password=$REMOTE_WORDPRESS_DB_PASSWORD \
+       --single-transaction --no-tablespaces \
+       --no-create-info=TRUE \
+       --extended-insert=FALSE \
+       --result-file="/var/www/git-wordpress/wordpress-database/$tableName.sql" \
+       $REMOTE_WORDPRESS_DB_NAME
+   ; \
+   done
+
+# Split `wp-posts` into two smaller files. Splitting at 15,000 lines will make
+# the first file just under 100 MB, which is the limit for GitHub.
+head -n 15000 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_1.sql
+tail -n +15001 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_2.sql
+rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Get latest WordPress files from remote host with LFTP"
