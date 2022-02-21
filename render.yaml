@@ -26,7 +26,7 @@
 # - name: dollyskettle-remote-backup
 #   envVars:
 #     - key: WORDPRESS_ENVIRONMENT
-#       sync: false
+#       value: remote-backup
 #     - key: REMOTE_WORDPRESS_DB_HOST
 #       sync: false
 #     - key: REMOTE_WORDPRESS_DB_USER
@@ -67,6 +67,11 @@
 #       sync: false
 #     - key: REPLICA_URL_AUTHORIZATION_BASIC
 #       sync: false
+#
+# - name: dollyskettle-replica
+#   envVars:
+#     - key: WORDPRESS_ENVIRONMENT
+#       value: replica
 #     - key: BACKUP_STATUS_DEPLOY_HOOK
 #       sync: false
 #     - key: BACKUP_STATUS_API_TOKEN
@@ -76,6 +81,8 @@
 #
 # - name: dollyskettle-publish
 #   envVars:
+#     - key: WORDPRESS_ENVIRONMENT
+#       value: publish
 #     - key: GITHUB_USER_EMAIL
 #       sync: false
 #     - key: GITHUB_USER_NAME
