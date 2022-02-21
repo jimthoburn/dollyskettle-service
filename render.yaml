@@ -11,8 +11,19 @@
 #       sync: false
 #     - key: GITHUB_REPOSITORY
 #       sync: false
-
-# - name: dollyskettle-remote-baclup
+#
+#   NOTE: This is for documentation purposes and isn’t supported by Render
+#   secretFiles:
+#     - fileName: .htpasswd
+#       sync: false
+#     - fileName: id_ed25519
+#       sync: false
+#     - fileName: id_ed25519.pub
+#       sync: false
+#     - fileName: known_hosts
+#       sync: false
+#
+# - name: dollyskettle-remote-backup
 #   envVars:
 #     - key: WORDPRESS_ENVIRONMENT
 #       sync: false
@@ -63,10 +74,23 @@
 #     - key: BACKUP_STATUS_SERVICE_ID
 #       sync: false
 #
+# - name: dollyskettle-publish
+#   envVars:
+#     - key: GITHUB_USER_EMAIL
+#       sync: false
+#     - key: GITHUB_USER_NAME
+#       sync: false
+#     - key: GITHUB_REPOSITORY
+#       sync: false
+#     - key: NETLIFY_SITE_ID
+#       sync: false
+#     - key: NETLIFY_AUTH_TOKEN
+#       sync: false
+#     - key: AUTHORIZATION_HEADER_VALUE
+#       sync: false
+#
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
-#     - fileName: .htpasswd
-#       sync: false
 #     - fileName: id_ed25519
 #       sync: false
 #     - fileName: id_ed25519.pub
@@ -86,7 +110,7 @@ services:
   region: oregon
   plan: starter
   disk:
-    name: wordpress
+    name: www
     mountPath: /var/www
     sizeGB: 30
   envVars:
@@ -136,6 +160,7 @@ services:
 - type: cron
   name: dollyskettle-backup
   env: python
+  region: oregon
   schedule: "0 5 * * *"
   startCommand: ./backup/start.sh
   envVars:
@@ -148,3 +173,16 @@ services:
   staticPublishPath: ./backup-test-results
   envVars:
   - fromGroup: dollyskettle-settings
+- type: worker
+  name: dollyskettle-publish
+  env: node
+  autoDeploy: false
+  region: oregon
+  plan: starter
+  disk:
+    name: root
+    mountPath: /root
+    sizeGB: 30
+  startCommand: ./publish/update-cached-content.sh
+  envVars:
+  - fromGroup: dollyskettle-publish

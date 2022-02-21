@@ -1,6 +1,6 @@
 # https://github.com/docker-library/wordpress/blob/4d82a6aefbe895b0a9f3d809bd2959c2dd1710fd/latest/php7.4/apache/Dockerfile
 
-FROM php:7.4-apache
+FROM php:7.4-apache-bullseye
 
 # persistent dependencies
 RUN set -eux; \
