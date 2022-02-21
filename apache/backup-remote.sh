@@ -200,24 +200,63 @@ git commit -m "Automatic commit with the latest content"
 git pull --rebase
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Update local MySQL database"
+echo "Delete MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 echo "drop database wordpress; create database wordpress;" > delete-wordpress.sql
 
 mysql \
--h $WORDPRESS_DB_HOST \
--u $WORDPRESS_DB_USER \
---password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
-< /var/www/git-wordpress/delete-wordpress.sql
+  -h $WORDPRESS_DB_HOST \
+  -u $WORDPRESS_DB_USER \
+  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+  < /var/www/git-wordpress/delete-wordpress.sql
 
 rm delete-wordpress.sql
 
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Import MySQL database"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Combine data for `wp_posts` table into a single file
+cat /var/www/git-wordpress/wordpress-database/wp_posts_1.sql > /var/www/git-wordpress/wordpress-database/wp_posts.sql
+cat /var/www/git-wordpress/wordpress-database/wp_posts_2.sql >> /var/www/git-wordpress/wordpress-database/wp_posts.sql
+
+# Import the schema
 mysql \
--h $WORDPRESS_DB_HOST \
--u $WORDPRESS_DB_USER \
---password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
-< /var/www/git-wordpress/wordpress-database.sql
+  -h $WORDPRESS_DB_HOST \
+  -u $WORDPRESS_DB_USER \
+  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+  < /var/www/git-wordpress/wordpress-database/schema.sql
+
+# Import the tables
+import_mysql_table() {
+  mysql \
+    -h $WORDPRESS_DB_HOST \
+    -u $WORDPRESS_DB_USER \
+    --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+    < "/var/www/git-wordpress/wordpress-database/$1.sql"
+}
+
+for tableName in \
+    'wp_commentmeta' \
+    'wp_comments' \
+    'wp_links' \
+    'wp_options' \
+    'wp_postmeta' \
+    'wp_posts' \
+    'wp_term_relationships' \
+    'wp_term_taxonomy' \
+    'wp_termmeta' \
+    'wp_terms' \
+    'wp_usermeta'\
+    'wp_users'; \
+  do
+    echo $tableName; \
+    import_mysql_table $tableName; \
+  done
+
+# Remove temporary file
+rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"
