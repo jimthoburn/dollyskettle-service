@@ -11,6 +11,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 cd /root
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Install Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://github.com/netlify/netlify-credential-helper
+netlify lm:install
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Configure Git"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
