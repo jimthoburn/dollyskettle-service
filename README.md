@@ -4,7 +4,7 @@ This is example code for automatically setting up a WordPress site with Docker a
 
 You can use the included [blueprint](https://render.com/docs/infrastructure-as-code) to host this on [Render](https://render.com/).
 
-This is meant to be used together with a separate [content repository](https://github.com/jimthoburn/wordpress-content-example) that has the WordPress files, uploads and a MySQL backup file.
+This can be used together with a separate [content repository](https://github.com/jimthoburn/wordpress-content-example) that has the WordPress files, uploads and a MySQL backup file.
 
 The basic steps to get it working are:
 
