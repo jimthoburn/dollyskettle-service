@@ -13,13 +13,11 @@ RUN apt-get update && apt-get install -y lftp
 COPY setup.sh /usr/local/bin/setup.sh
 COPY update-content.sh /usr/local/bin/update-content.sh
 
-VOLUME /root
-
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 # https://stackoverflow.com/questions/25775266/how-to-keep-docker-container-running-after-starting-services#answer-42873832
-# CMD ["sleep", "infinity"]
+CMD ["sleep", "infinity"]
 # CMD ["tail", "-f", "/dev/null"]
 
-CMD /bin/bash -c 'tail -f /dev/null'
+# CMD /bin/bash -c 'tail -f /dev/null'
