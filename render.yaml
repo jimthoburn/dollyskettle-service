@@ -193,3 +193,7 @@ services:
     name: root
     mountPath: /root
     sizeGB: 30
+  envVars:
+  # For `netlify lm:install`
+  - key: SHELL
+    value: /bin/bash

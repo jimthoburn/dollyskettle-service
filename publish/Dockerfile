@@ -10,12 +10,6 @@ RUN apt-get update && apt-get install -y alpine-pico
 RUN apt-get update && apt-get install -y openssh-client
 RUN apt-get update && apt-get install -y lftp
 
-# https://docs.netlify.com/cli/get-started/
-RUN npm install netlify-cli -g
-
-# https://github.com/netlify/netlify-credential-helper
-RUN netlify lm:install
-
 COPY setup.sh /usr/local/bin/
 COPY update-content.sh /usr/local/bin/
 
