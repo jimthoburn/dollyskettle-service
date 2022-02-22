@@ -77,11 +77,11 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 cd /root/git-dollyskettle.com
 
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Switch to branch automatically-cached-content"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
+# echo "- - - - - - - - - - - - - - - - - - - - - - -"
+# echo "Switch to branch automatically-cached-content"
+# echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-git switch automatically-cached-content
+# git switch automatically-cached-content
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Install dependencies"
