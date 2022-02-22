@@ -69,7 +69,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Copy WordPress backup images for publishing"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-cp /root/git-wordpress/html/wp-content/uploads /root/git-dollyskettle.com/_pictures
+cp --recursive /root/git-wordpress/html/wp-content/uploads/* /root/git-dollyskettle.com/_pictures
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
@@ -105,13 +105,44 @@ git add _api
 git add _pictures
 
 git commit -m "Update “_api” and “_pictures” with the latest content"
-git pull --rebase
+
+# https://stackoverflow.com/questions/3636914/how-can-i-see-what-i-am-about-to-push-with-git
+DIFF_ORIGIN=$(git diff --stat --cached origin/automatically-cached-content)
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "diff"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+echo $DIFF_ORIGIN
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Push commits to remote repository"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
+git pull --rebase
 git push origin automatically-cached-content
+
+# SHIM: Work around “context deadline exceeded” error in Netlify
+#       that seems to cause a build to fail the first time it’s tried
+#       after a push to origin with new images
+# If there’s anything to push
+# https://linuxacademy.com/blog/linux/conditions-in-bash-scripting-if-statements/
+if [ ! -z "$DIFF_ORIGIN" ]; then
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "retry deploy"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  # https://app.netlify.com/sites/dollyskettle-com/settings/deploys
+  #
+  # Trigger a deploy from “automatically-cached-content” branch:
+  curl -X POST -d {} https://api.netlify.com/build_hooks/6010c36f101bb451222add75
+  #
+  # Trigger a deploy from “main” branch:
+  # curl -X POST -d {} https://api.netlify.com/build_hooks/6010c33d7a05f66e370cd53f
+else
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "nothing to push"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+fi
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished publishing"
