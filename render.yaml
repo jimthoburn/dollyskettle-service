@@ -208,7 +208,7 @@ services:
   disk:
     name: root
     mountPath: /root
-    sizeGB: 50
+    sizeGB: 60
   envVars:
   # For `netlify lm:install`
   - key: SHELL
