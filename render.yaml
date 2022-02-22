@@ -112,7 +112,7 @@ services:
   env: docker
   dockerfilePath: ./apache/Dockerfile
   dockerContext: ./apache
-  initialDeployHook: "sh /usr/local/bin/wordpress-setup.sh"
+  initialDeployHook: "bash /usr/local/bin/wordpress-setup.sh"
   autoDeploy: false
   region: oregon
   plan: starter
@@ -185,7 +185,7 @@ services:
   env: docker
   dockerfilePath: ./publish/Dockerfile
   dockerContext: ./publish
-  initialDeployHook: "sh /usr/local/bin/setup.sh"
+  initialDeployHook: "bash /usr/local/bin/setup.sh"
   autoDeploy: false
   region: oregon
   plan: starter

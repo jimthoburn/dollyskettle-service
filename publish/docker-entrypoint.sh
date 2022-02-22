@@ -7,7 +7,7 @@ if [ "$WORDPRESS_ENVIRONMENT" = "publish" ]; then
 
   # Run a script, without waiting for it to finish
   # https://unix.stackexchange.com/questions/86247/what-does-ampersand-mean-at-the-end-of-a-shell-script-line#answer-86253
-  sh /usr/local/bin/update-content.sh &
+  bash /usr/local/bin/update-content.sh &
 
 fi
 

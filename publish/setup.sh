@@ -45,7 +45,7 @@ echo "Use Netlify Large Media"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # Run this command to use Netlify Large Media in your current shell
-source /root/.config/netlify/helper/path.bash.inc
+bash /root/.config/netlify/helper/path.bash.inc
 
 netlify lm:info
 netlify status
@@ -56,7 +56,11 @@ echo "Checkout repository"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
-git clone --single-branch --branch automatically-cached-content git@github.com:$GITHUB_REPOSITORY /root/git-dollyskettle.com
+git clone \
+  --single-branch \
+  --branch automatically-cached-content \
+  git@github.com:$GITHUB_REPOSITORY \
+  /root/git-dollyskettle.com
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"

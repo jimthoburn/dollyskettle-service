@@ -2,7 +2,7 @@
 
 if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
 
-  sh /usr/local/bin/wordpress-backup-remote.sh
+  bash /usr/local/bin/wordpress-backup-remote.sh
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Update replica"
@@ -24,7 +24,7 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
 else
 
   if [ "$WORDPRESS_ENVIRONMENT" = "replica" ]; then
-    sh /usr/local/bin/wordpress-reset.sh
+    bash /usr/local/bin/wordpress-reset.sh
 
     echo "- - - - - - - - - - - - - - - - - - - - - - -"
     echo "Update backup status"
