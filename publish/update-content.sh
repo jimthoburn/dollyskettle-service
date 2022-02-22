@@ -66,16 +66,34 @@ git clean -fdx
 git pull --rebase --autostash
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Copy WordPress backup images for publishing"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 cp --recursive /root/git-wordpress/html/wp-content/uploads/* /root/git-dollyskettle.com/_pictures
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 cd /root/git-dollyskettle.com
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
 
 # echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # echo "Switch to branch automatically-cached-content"
@@ -90,10 +108,23 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 npm install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Download the latest API data and images"
+echo "Check git status"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-npm run download:images
+git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Download the latest API data"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# npm run download:images
+npm run build
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Check changed files into the repository (only _api and _pictures)"
@@ -150,6 +181,18 @@ else
   echo "nothing to push"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 fi
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished publishing"

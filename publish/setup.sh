@@ -83,6 +83,12 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 cd /root/git-dollyskettle.com
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Switch to branch automatically-cached-content"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
@@ -95,18 +101,47 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 npm install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Get LFS files"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # https://github.com/git-lfs/git-lfs/issues/325
-# git lfs fetch
+
+# Fetch a few times, in case the initial fetch is incomplete
+git lfs fetch
+git lfs fetch
+git lfs fetch
+
 git lfs pull
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check git status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Get files for remote backup"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git clone git@github.com:$GITHUB_REPOSITORY_WORDPRESS /root/git-wordpress
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished setup"
