@@ -69,11 +69,12 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 eval "$(ssh-agent -s)"
 
 # https://stackoverflow.com/questions/42019529/how-to-clone-pull-a-git-repository-ignoring-lfs
-GIT_LFS_SKIP_SMUDGE=1 git clone \
-  --single-branch \
-  --branch automatically-cached-content \
-  git@github.com:$GITHUB_REPOSITORY \
-  /root/git-dollyskettle.com
+GIT_LFS_SKIP_SMUDGE=1 \
+  git clone \
+    --single-branch \
+    --branch automatically-cached-content \
+    git@github.com:$GITHUB_REPOSITORY \
+    /root/git-dollyskettle.com
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
@@ -88,17 +89,18 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git switch automatically-cached-content
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Get LFS files"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-# https://github.com/git-lfs/git-lfs/issues/325
-git lfs pull
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Install dependencies"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 npm install
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Get LFS files"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://github.com/git-lfs/git-lfs/issues/325
+# git lfs fetch
+git lfs pull
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished setup"
