@@ -119,6 +119,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Push commits to remote repository"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
+# https://nicolas.busseneau.fr/en/blog/2020/12/two-step-push-accelerating-git-lfs-migration-for-big-repositories
+#   Push pointer files only
+#     GIT_LFS_SKIP_PUSH=1 git push --no-verify origin automatically-cached-content
+#   Push LFS objects
+#     git lfs push origin automatically-cached-content
+#     git lfs push --all origin automatically-cached-content
+
 git pull --rebase
 git push origin automatically-cached-content
 
