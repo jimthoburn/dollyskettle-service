@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Starting cached content update"
+echo "Starting publishing"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -96,5 +96,18 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git push origin automatically-cached-content
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Finished backing up"
+echo "Finished publishing"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Stop publishing service"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+curl --request POST \
+     --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/suspend" \
+     --header 'Accept: application/json' \
+     --header "Authorization: Bearer $PUBLISH_API_TOKEN"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Finished stopping publishing service"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"

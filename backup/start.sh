@@ -28,7 +28,7 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
        --header "Authorization: Bearer $REMOTE_BACKUP_API_TOKEN"
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Finished"
+  echo "Finished backup cron"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 fi

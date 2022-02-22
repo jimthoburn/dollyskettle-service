@@ -67,6 +67,18 @@
 #       sync: false
 #     - key: REPLICA_URL_AUTHORIZATION_BASIC
 #       sync: false
+#     - key: BACKUP_STATUS_DEPLOY_HOOK
+#       sync: false
+#     - key: BACKUP_STATUS_API_TOKEN
+#       sync: false
+#     - key: BACKUP_STATUS_SERVICE_ID
+#       sync: false
+#     - key: PUBLISH_DEPLOY_HOOK
+#       sync: false
+#     - key: PUBLISH_API_TOKEN
+#       sync: false
+#     - key: PUBLISH_SERVICE_ID
+#       sync: false
 #
 # - name: dollyskettle-replica
 #   envVars:
@@ -171,14 +183,14 @@ services:
   env: python
   region: oregon
   schedule: "0 5 * * *"
-  startCommand: ./backup/start.sh
+  startCommand: "bash ./backup/start.sh"
   envVars:
   - fromGroup: dollyskettle-settings
 - type: web
   name: dollyskettle-backup-status
   env: static
   autoDeploy: false
-  buildCommand: sh ./backup/test.sh
+  buildCommand: "bash ./backup/test.sh"
   staticPublishPath: ./backup-test-results
   envVars:
   - fromGroup: dollyskettle-settings
