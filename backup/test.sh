@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
 

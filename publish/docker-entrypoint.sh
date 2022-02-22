@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Avoid “Another git process seems to be running in this repository” error
 rm -f /root/git-dollyskettle.com/.git/index.lock

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting cached content update"
