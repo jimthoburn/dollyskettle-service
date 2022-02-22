@@ -11,20 +11,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 cd /root
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Install Netlify Large Media"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-# https://github.com/netlify/netlify-credential-helper
-netlify lm:install
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Use Netlify Large Media"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-# Run this command to use Netlify Large Media in your current shell
-source /root/.config/netlify/helper/path.bash.inc
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Configure Git"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
@@ -46,6 +32,24 @@ sed -i -e '$a\' /root/.ssh/known_hosts
 chmod 600 /root/.ssh/id_ed25519
 chmod 600 /root/.ssh/id_ed25519.pub
 chmod 600 /root/.ssh/known_hosts
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Install Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# https://github.com/netlify/netlify-credential-helper
+netlify lm:install
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Use Netlify Large Media"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+# Run this command to use Netlify Large Media in your current shell
+source /root/.config/netlify/helper/path.bash.inc
+
+netlify lm:info
+netlify status
+git config -l
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Checkout repository"

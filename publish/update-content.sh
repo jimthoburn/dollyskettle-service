@@ -47,6 +47,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 # Run this command to use Netlify Large Media in your current shell
 source /root/.config/netlify/helper/path.bash.inc
 
+netlify lm:info
+netlify status
+git config -l
+
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
