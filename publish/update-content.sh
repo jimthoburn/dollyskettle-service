@@ -18,38 +18,40 @@ git config --global user.email $GITHUB_USER_EMAIL
 git config --global user.name "$GITHUB_USER_NAME"
 git lfs install
 
+# https://github.com/netlify/netlify-credential-helper
+netlify lm:install
+
 rm -rf /root/.ssh
 mkdir /root/.ssh
+
 cp /etc/secrets/id_ed25519 /root/.ssh/id_ed25519
 cp /etc/secrets/id_ed25519.pub /root/.ssh/id_ed25519.pub
 cp /etc/secrets/known_hosts /root/.ssh/known_hosts
+
+# Work around for `netlify-credential-helper`
+# https://github.com/netlify/netlify-credential-helper/issues/41#issuecomment-905195175
+# https://docs.netlify.com/cli/get-started/#config-json-location
+cp /etc/secrets/config.json /root/.config/netlify/config.json
 
 # https://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file
 sed -i -e '$a\' /root/.ssh/id_ed25519
 sed -i -e '$a\' /root/.ssh/id_ed25519.pub
 sed -i -e '$a\' /root/.ssh/known_hosts
+sed -i -e '$a\' /root/.config/netlify/config.json
 
 chmod 600 /root/.ssh/id_ed25519
 chmod 600 /root/.ssh/id_ed25519.pub
 chmod 600 /root/.ssh/known_hosts
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Install Netlify Large Media"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-# https://github.com/netlify/netlify-credential-helper
-netlify lm:install
+chmod 600 /root/.config/netlify/config.json
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Use Netlify Large Media"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # Run this command to use Netlify Large Media in your current shell
-source /root/.config/netlify/helper/path.bash.inc
+# bash /root/.config/netlify/helper/path.bash.inc
 
-netlify lm:info
-netlify status
-git config -l
+PATH="/root/.config/netlify/helper/bin":$PATH
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"

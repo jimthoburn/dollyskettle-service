@@ -104,6 +104,8 @@
 #       sync: false
 #     - fileName: known_hosts
 #       sync: false
+#     - fileName: config.json
+#       sync: false
 #
 previewsEnabled: true
 services:
@@ -196,4 +198,6 @@ services:
   envVars:
   # For `netlify lm:install`
   - key: SHELL
+    value: /bin/bash
+  - key: BASH_SOURCE
     value: /bin/bash
