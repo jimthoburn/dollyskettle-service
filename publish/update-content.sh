@@ -54,6 +54,24 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 PATH="/root/.config/netlify/helper/bin":$PATH
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Get latest images from WordPress backup"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+cd /root/git-wordpress
+
+eval "$(ssh-agent -s)"
+
+git reset --hard
+git clean -fdx
+git pull --rebase --autostash
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Copy WordPress backup images for publishing"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+cp /root/git-wordpress/html/wp-content/uploads /root/git-dollyskettle.com/_pictures
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /root/git-dollyskettle.com"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 

@@ -101,6 +101,8 @@
 #       sync: false
 #     - key: GITHUB_REPOSITORY
 #       sync: false
+#     - key: GITHUB_REPOSITORY_WORDPRESS
+#       sync: false
 #     - key: NETLIFY_SITE_ID
 #       sync: false
 #     - key: NETLIFY_AUTH_TOKEN
@@ -206,7 +208,7 @@ services:
   disk:
     name: root
     mountPath: /root
-    sizeGB: 30
+    sizeGB: 50
   envVars:
   # For `netlify lm:install`
   - key: SHELL

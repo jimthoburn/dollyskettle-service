@@ -103,5 +103,11 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git lfs pull
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Get files for remote backup"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+git clone git@github.com:$GITHUB_REPOSITORY_WORDPRESS /root/git-wordpress
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished setup"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
