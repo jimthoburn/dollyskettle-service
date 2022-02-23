@@ -202,10 +202,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Stop publishing service"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# curl --request POST \
-#      --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/suspend" \
-#      --header 'Accept: application/json' \
-#      --header "Authorization: Bearer $PUBLISH_API_TOKEN"
+curl --request POST \
+     --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/suspend" \
+     --header 'Accept: application/json' \
+     --header "Authorization: Bearer $PUBLISH_API_TOKEN"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished stopping publishing service"
