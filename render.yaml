@@ -109,6 +109,12 @@
 #       sync: false
 #     - key: AUTHORIZATION_HEADER_VALUE
 #       sync: false
+#     - key: PUBLISH_DEPLOY_HOOK
+#       sync: false
+#     - key: PUBLISH_API_TOKEN
+#       sync: false
+#     - key: PUBLISH_SERVICE_ID
+#       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
