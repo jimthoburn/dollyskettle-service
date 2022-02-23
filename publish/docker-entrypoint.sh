@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Avoid “Another git process seems to be running in this repository” error
+rm -f /root/git-wordpress/.git/index.lock
 rm -f /root/git-dollyskettle.com/.git/index.lock
 
 if [ "$WORDPRESS_ENVIRONMENT" = "publish" ]; then
