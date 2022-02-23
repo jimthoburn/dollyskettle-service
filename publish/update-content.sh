@@ -157,7 +157,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 #     git lfs push origin automatically-cached-content
 #     git lfs push --all origin automatically-cached-content
 
-git pull --rebase
+git pull --rebase --autostash
 git push origin automatically-cached-content
 
 # SHIM: Work around “context deadline exceeded” error in Netlify
