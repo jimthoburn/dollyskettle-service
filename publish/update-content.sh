@@ -96,10 +96,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git status
 
 # echo "- - - - - - - - - - - - - - - - - - - - - - -"
-# echo "Switch to branch automatically-cached-content"
+# echo "Switch to branch main"
 # echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# git switch automatically-cached-content
+# git switch main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Install dependencies"
@@ -138,7 +138,7 @@ git add _pictures
 git commit -m "Update “_api” and “_pictures” with the latest content"
 
 # https://stackoverflow.com/questions/3636914/how-can-i-see-what-i-am-about-to-push-with-git
-DIFF_ORIGIN=$(git diff --stat --cached origin/automatically-cached-content)
+DIFF_ORIGIN=$(git diff --stat --cached origin/main)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "diff"
@@ -152,13 +152,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # https://nicolas.busseneau.fr/en/blog/2020/12/two-step-push-accelerating-git-lfs-migration-for-big-repositories
 #   Push pointer files only
-#     GIT_LFS_SKIP_PUSH=1 git push --no-verify origin automatically-cached-content
+#     GIT_LFS_SKIP_PUSH=1 git push --no-verify origin main
 #   Push LFS objects
-#     git lfs push origin automatically-cached-content
-#     git lfs push --all origin automatically-cached-content
+#     git lfs push origin main
+#     git lfs push --all origin main
 
 git pull --rebase --autostash
-git push origin automatically-cached-content
+git push origin main
 
 # SHIM: Work around “context deadline exceeded” error in Netlify
 #       that seems to cause a build to fail the first time it’s tried
@@ -171,7 +171,7 @@ if [ ! -z "$DIFF_ORIGIN" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   # https://app.netlify.com/sites/dollyskettle-com/settings/deploys
   #
-  # Trigger a deploy from “automatically-cached-content” branch:
+  # Trigger a deploy from “main” branch:
   curl -X POST -d {} https://api.netlify.com/build_hooks/6010c36f101bb451222add75
   #
   # Trigger a deploy from “main” branch:

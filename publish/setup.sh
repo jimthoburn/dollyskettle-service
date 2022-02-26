@@ -72,7 +72,7 @@ eval "$(ssh-agent -s)"
 GIT_LFS_SKIP_SMUDGE=1 \
   git clone \
     --single-branch \
-    --branch automatically-cached-content \
+    --branch main \
     git@github.com:$GITHUB_REPOSITORY \
     /root/git-dollyskettle.com
 
@@ -89,10 +89,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 git status
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Switch to branch automatically-cached-content"
+echo "Switch to branch main"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-git switch automatically-cached-content
+git switch main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Install dependencies"
