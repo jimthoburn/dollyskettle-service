@@ -43,13 +43,78 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Create a backup of MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
+# mysqldump \
+#   -h $WORDPRESS_DB_HOST \
+#   -u $WORDPRESS_DB_USER \
+#   --password=$WORDPRESS_DB_PASSWORD \
+#   --single-transaction --no-tablespaces \
+#   --result-file=/var/www/git-wordpress/wordpress-database.sql \
+#   --databases $WORDPRESS_DB_NAME
+
+# Make a backup with smaller files
+# https://superuser.com/questions/194851/how-do-i-split-a-large-mysql-backup-file-into-multiple-files#answer-194857
+
+rm -rf /var/www/git-wordpress/wordpress-database/
+mkdir /var/www/git-wordpress/wordpress-database/
+
+# Back up the schema
+# --no-data
+# Do not write any table row information (that is, do not dump table contents). This is useful if you want to dump
+# only the CREATE TABLE statement for the table (for example, to create an empty copy of the table by loading the
+# dump file).
+
 mysqldump \
   -h $WORDPRESS_DB_HOST \
   -u $WORDPRESS_DB_USER \
   --password=$WORDPRESS_DB_PASSWORD \
-  --single-transaction --no-tablespaces \
-  --result-file=/var/www/git-wordpress/wordpress-database.sql \
-  --databases $WORDPRESS_DB_NAME
+  --single-transaction \
+  --no-tablespaces \
+  --no-data \
+  --result-file=/var/www/git-wordpress/wordpress-database/schema.sql \
+  $WORDPRESS_DB_NAME
+
+# Back up the individual tables
+# --no-create-info=TRUE
+# Dump only the data. Skip writing CREATE TABLE statements.
+# --extended-insert=FALSE
+# Dump data in separate insert statements, so you can split the individual tables into smaller files
+
+backup_mysql_table() {
+  mysqldump \
+    -h $WORDPRESS_DB_HOST \
+    -u $WORDPRESS_DB_USER \
+    --password=$WORDPRESS_DB_PASSWORD \
+    --single-transaction \
+    --no-tablespaces \
+    --no-create-info=TRUE \
+    --extended-insert=FALSE \
+    --result-file="/var/www/git-wordpress/wordpress-database/$1.sql" \
+    $WORDPRESS_DB_NAME $1
+}
+
+for tableName in \
+    'wp_commentmeta' \
+    'wp_comments' \
+    'wp_links' \
+    'wp_options' \
+    'wp_postmeta' \
+    'wp_posts' \
+    'wp_term_relationships' \
+    'wp_term_taxonomy' \
+    'wp_termmeta' \
+    'wp_terms' \
+    'wp_usermeta'\
+    'wp_users'; \
+  do
+    echo $tableName; \
+    backup_mysql_table $tableName; \
+  done
+
+# Split `wp-posts` into two smaller files. Splitting at 15,000 lines will make
+# the first file just under 100 MB, which is the limit for GitHub.
+head -n 15000 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_1.sql
+tail -n +15001 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_2.sql
+rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "cd to /var/www/git-wordpress"

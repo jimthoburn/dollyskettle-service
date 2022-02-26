@@ -104,7 +104,8 @@ mysqldump \
   -h 127.0.0.1 \
   -u $REMOTE_WORDPRESS_DB_USER \
   --password=$REMOTE_WORDPRESS_DB_PASSWORD \
-  --single-transaction --no-tablespaces \
+  --single-transaction \
+  --no-tablespaces \
   --no-data \
   --result-file=/var/www/git-wordpress/wordpress-database/schema.sql \
   $REMOTE_WORDPRESS_DB_NAME
@@ -127,7 +128,8 @@ backup_mysql_table() {
     -h 127.0.0.1 \
     -u $REMOTE_WORDPRESS_DB_USER \
     --password=$REMOTE_WORDPRESS_DB_PASSWORD \
-    --single-transaction --no-tablespaces \
+    --single-transaction \
+    --no-tablespaces \
     --no-create-info=TRUE \
     --extended-insert=FALSE \
     --result-file="/var/www/git-wordpress/wordpress-database/$1.sql" \
