@@ -50,10 +50,11 @@ echo "Get latest files, while stashing the maintenance file"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
+git switch main
 git reset --hard origin/main
 git clean -fdx
 echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
-git pull --rebase --autostash
+git pull --rebase --autostash origin main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Delete MySQL database"

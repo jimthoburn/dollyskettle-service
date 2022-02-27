@@ -128,7 +128,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 eval "$(ssh-agent -s)"
 git add .
 git commit -m "Automatic commit with the latest content"
-git pull --rebase
+git pull --rebase --autostash origin main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Put site back in non-maintenance mode"

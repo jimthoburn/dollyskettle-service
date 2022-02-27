@@ -198,7 +198,7 @@ git checkout HEAD -- html/.htaccess
 git checkout HEAD -- html/wp-config.php
 
 git commit -m "Automatic commit with the latest content"
-git pull --rebase
+git pull --rebase --autostash origin main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Delete MySQL database"

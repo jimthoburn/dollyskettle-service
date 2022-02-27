@@ -61,21 +61,10 @@ cd /root/git-wordpress
 
 eval "$(ssh-agent -s)"
 
-git reset --hard
+git switch main
+git reset --hard origin/main
 git clean -fdx
-git pull --rebase --autostash
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Check disk size"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-df -h
-
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Copy WordPress backup images for publishing"
-echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-cp --recursive /root/git-wordpress/html/wp-content/uploads/* /root/git-dollyskettle.com/_pictures
+git pull --rebase --autostash origin main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Check disk size"
@@ -95,11 +84,14 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git status
 
-# echo "- - - - - - - - - - - - - - - - - - - - - - -"
-# echo "Switch to branch main"
-# echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Switch to branch main"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# git switch main
+git switch main
+git reset --hard origin/main
+git clean -fdx
+git pull --rebase --autostash origin main
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Install dependencies"
@@ -112,6 +104,18 @@ echo "Check git status"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git status
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Copy WordPress backup images for publishing"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+cp --recursive /root/git-wordpress/html/wp-content/uploads/* /root/git-dollyskettle.com/_pictures
+
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Check disk size"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+df -h
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Download the latest API data"
@@ -156,7 +160,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 #     git lfs push origin main
 #     git lfs push --all origin main
 
-git pull --rebase --autostash
+git pull --rebase --autostash origin main
 git push origin main
 
 # SHIM: Work around “context deadline exceeded” error in Netlify
