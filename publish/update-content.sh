@@ -117,8 +117,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Download the latest API data"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# npm run download:images
-npm run build
+npm run download:data
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Check git status"
