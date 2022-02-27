@@ -110,10 +110,9 @@ for tableName in \
     backup_mysql_table $tableName; \
   done
 
-# Split `wp-posts` into two smaller files. Splitting at 15,000 lines will make
-# the first file just under 100 MB, which is the limit for GitHub.
-head -n 15000 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_1.sql
-tail -n +15001 /var/www/git-wordpress/wordpress-database/wp_posts.sql > /var/www/git-wordpress/wordpress-database/wp_posts_2.sql
+# Split `wp-posts` into two smaller files.
+# https://unix.stackexchange.com/questions/32626/split-a-file-by-line-and-have-control-over-resulting-files-extension
+split --additional-suffix=.sql -dl 1000 wp_posts.sql wp_posts_
 rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"

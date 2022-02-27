@@ -45,8 +45,8 @@ echo "Import MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # Combine data for `wp_posts` table into a single file
-cat /var/www/git-wordpress/wordpress-database/wp_posts_1.sql > /var/www/git-wordpress/wordpress-database/wp_posts.sql
-cat /var/www/git-wordpress/wordpress-database/wp_posts_2.sql >> /var/www/git-wordpress/wordpress-database/wp_posts.sql
+# https://unix.stackexchange.com/questions/24630/whats-the-best-way-to-join-files-again-after-splitting-them
+cat wp_posts_*.sql > wp_posts.sql
 
 # Import the schema
 mysql \
