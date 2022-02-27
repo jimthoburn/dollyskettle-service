@@ -156,7 +156,7 @@ for tableName in \
 
 # Split `wp-posts` into two smaller files.
 # https://unix.stackexchange.com/questions/32626/split-a-file-by-line-and-have-control-over-resulting-files-extension
-split --additional-suffix=.sql -dl 1000 wp_posts.sql wp_posts_
+split --additional-suffix=.sql -dl 1000 /var/www/git-wordpress/wordpress-database/wp_posts.sql /var/www/git-wordpress/wordpress-database/wp_posts_
 rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -220,7 +220,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # Combine data for `wp_posts` table into a single file
 # https://unix.stackexchange.com/questions/24630/whats-the-best-way-to-join-files-again-after-splitting-them
-cat wp_posts_*.sql > wp_posts.sql
+cat /var/www/git-wordpress/wordpress-database/wp_posts_*.sql > /var/www/git-wordpress/wordpress-database/wp_posts.sql
 
 # Import the schema
 mysql \
