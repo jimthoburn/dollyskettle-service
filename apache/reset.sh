@@ -50,7 +50,7 @@ echo "Get latest files, while stashing the maintenance file"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
-git reset --hard
+git reset --hard origin/main
 git clean -fdx
 echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
 git pull --rebase --autostash

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
-
+  
+  bash /usr/local/bin/reset.sh
   bash /usr/local/bin/wordpress-backup-remote.sh
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
