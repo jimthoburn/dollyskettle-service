@@ -61,8 +61,8 @@ cd /root/git-wordpress
 
 eval "$(ssh-agent -s)"
 
-git switch main
 git rebase --abort
+git switch main
 git reset --hard origin/main
 git clean -fdx
 git pull --rebase --autostash origin main
@@ -174,13 +174,10 @@ if [ ! -z "$DIFF_ORIGIN" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "retry deploy"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  # https://app.netlify.com/sites/dollyskettle-com/settings/deploys
-  #
+
   # Trigger a deploy from “main” branch:
-  curl -X POST -d {} https://api.netlify.com/build_hooks/6010c36f101bb451222add75
-  #
-  # Trigger a deploy from “main” branch:
-  # curl -X POST -d {} https://api.netlify.com/build_hooks/6010c33d7a05f66e370cd53f
+  curl -X POST -d '{}' "$NETLIFY_DEPLOY_HOOK"
+
 else
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "nothing to push"

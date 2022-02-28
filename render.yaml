@@ -107,6 +107,8 @@
 #       sync: false
 #     - key: NETLIFY_AUTH_TOKEN
 #       sync: false
+#     - key: NETLIFY_DEPLOY_HOOK
+#       sync: false
 #     - key: AUTHORIZATION_HEADER_VALUE
 #       sync: false
 #     - key: PUBLISH_DEPLOY_HOOK

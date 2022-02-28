@@ -71,8 +71,6 @@ eval "$(ssh-agent -s)"
 # https://stackoverflow.com/questions/42019529/how-to-clone-pull-a-git-repository-ignoring-lfs
 GIT_LFS_SKIP_SMUDGE=1 \
   git clone \
-    --single-branch \
-    --branch main \
     git@github.com:$GITHUB_REPOSITORY \
     /root/git-dollyskettle.com
 
