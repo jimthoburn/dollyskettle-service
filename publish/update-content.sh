@@ -62,6 +62,7 @@ cd /root/git-wordpress
 eval "$(ssh-agent -s)"
 
 git switch main
+git rebase --abort
 git reset --hard origin/main
 git clean -fdx
 git pull --rebase --autostash origin main
@@ -89,6 +90,7 @@ echo "Switch to branch main"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git switch main
+git rebase --abort
 git reset --hard origin/main
 git clean -fdx
 git pull --rebase --autostash origin main

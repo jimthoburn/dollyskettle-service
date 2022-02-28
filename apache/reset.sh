@@ -51,6 +51,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
 git switch main
+git rebase --abort
 git reset --hard origin/main
 git clean -fdx
 echo "<?php \$upgrading = time(); ?>" > /var/www/html/.maintenance
