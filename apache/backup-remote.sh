@@ -18,7 +18,7 @@ git config --global user.email $GITHUB_USER_EMAIL
 git config --global user.name "$GITHUB_USER_NAME"
 git lfs install
 
-rm -rf /var/www/.ssh
+# rm -rf /var/www/.ssh
 mkdir /var/www/.ssh
 cp /etc/secrets/id_ed25519 /var/www/.ssh/id_ed25519
 cp /etc/secrets/id_ed25519.pub /var/www/.ssh/id_ed25519.pub

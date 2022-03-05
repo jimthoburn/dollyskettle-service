@@ -21,11 +21,11 @@ VOLUME /root
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Set Bash to be the node login shell
-RUN usermod -s /bin/bash node
+# Set Bash to be the root login shell
+RUN usermod -s /bin/bash root
 
-# Ensure /root is owned by node
-RUN chown node:node /root
+# Ensure /root is owned by root
+RUN chown root:root /root
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
