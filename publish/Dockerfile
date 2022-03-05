@@ -20,6 +20,13 @@ VOLUME /root
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set Bash to be the node login shell
+RUN usermod -s /bin/bash node
+
+# Ensure /root is owned by node
+RUN chown node:node /root
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 # https://stackoverflow.com/questions/25775266/how-to-keep-docker-container-running-after-starting-services#answer-42873832

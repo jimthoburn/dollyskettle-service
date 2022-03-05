@@ -139,6 +139,12 @@ VOLUME /var/www
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+# Set Bash to be the www-data login shell
+RUN usermod -s /bin/bash www-data
+
+# Ensure /var/www is owned by www-data
+RUN chown www-data:www-data /var/www
+
 USER www-data:www-data
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
