@@ -118,6 +118,25 @@
 #     - key: PUBLISH_SERVICE_ID
 #       sync: false
 #
+# - name: dollyskettle-production
+#   envVars:
+#     - key: WORDPRESS_ENVIRONMENT
+#       value: production
+#     - key: BACKUP_STATUS_DEPLOY_HOOK
+#       sync: false
+#     - key: BACKUP_STATUS_API_TOKEN
+#       sync: false
+#     - key: BACKUP_STATUS_SERVICE_ID
+#       sync: false
+#     - key: REPLICA_DEPLOY_HOOK
+#       sync: false
+#     - key: REPLICA_API_TOKEN
+#       sync: false
+#     - key: REPLICA_MYSQL_SERVICE_ID
+#       sync: false
+#     - key: REPLICA_WORDPRESS_SERVICE_ID
+#       sync: false
+#
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
 #     - fileName: id_ed25519

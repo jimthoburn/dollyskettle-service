@@ -1,5 +1,28 @@
 #!/bin/bash
 
+if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Stop backup status"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+  curl --request POST \
+       --url "https://api.render.com/v1/services/$BACKUP_STATUS_SERVICE_ID/suspend" \
+       --header 'Accept: application/json' \
+       --header "Authorization: Bearer $BACKUP_STATUS_API_TOKEN"
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Start backup by redploying production"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+  curl -X POST -d '{}' "$PRODUCTION_DEPLOY_HOOK"
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Finished backup cron"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+fi
+
 if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
