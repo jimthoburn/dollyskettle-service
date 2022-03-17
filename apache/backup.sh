@@ -43,13 +43,13 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Create a backup of MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-# mysqldump \
-#   -h $WORDPRESS_DB_HOST \
-#   -u $WORDPRESS_DB_USER \
-#   --password=$WORDPRESS_DB_PASSWORD \
-#   --single-transaction --no-tablespaces \
-#   --result-file=/var/www/git-wordpress/wordpress-database.sql \
-#   --databases $WORDPRESS_DB_NAME
+mysqldump \
+  -h $WORDPRESS_DB_HOST \
+  -u $WORDPRESS_DB_USER \
+  --password=$WORDPRESS_DB_PASSWORD \
+  --single-transaction --no-tablespaces \
+  --result-file=/var/www/daily-wordpress-database-backup.sql \
+  --databases $WORDPRESS_DB_NAME
 
 # Make a backup with smaller files
 # https://superuser.com/questions/194851/how-do-i-split-a-large-mysql-backup-file-into-multiple-files#answer-194857
@@ -110,7 +110,7 @@ for tableName in \
     backup_mysql_table $tableName; \
   done
 
-# Split `wp-posts` into two smaller files.
+# Split `wp-posts` into smaller files with a maximum of 1000 lines each
 # https://unix.stackexchange.com/questions/32626/split-a-file-by-line-and-have-control-over-resulting-files-extension
 split --additional-suffix=.sql -dl 1000 /var/www/git-wordpress/wordpress-database/wp_posts.sql /var/www/git-wordpress/wordpress-database/wp_posts_
 rm /var/www/git-wordpress/wordpress-database/wp_posts.sql

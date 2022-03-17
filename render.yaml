@@ -136,6 +136,8 @@
 #       sync: false
 #     - key: REPLICA_WORDPRESS_SERVICE_ID
 #       sync: false
+#     - key: PRODUCTION_DEPLOY_HOOK
+#       sync: false
 #
 #   NOTE: This is for documentation purposes and isn’t supported by Render
 #   secretFiles:
