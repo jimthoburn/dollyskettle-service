@@ -156,11 +156,20 @@ echo "Push commits to remote repository"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 # https://nicolas.busseneau.fr/en/blog/2020/12/two-step-push-accelerating-git-lfs-migration-for-big-repositories
+#   Option 1)
+#   push LFS objects
+#     git lfs push origin --object-id `find lfs/objects/ -type f -printf "%f "`
+#   push regular Git objects
+#     GIT_LFS_SKIP_PUSH=1 git push
+#
+#   Or... git lfs push origin --all
+#
+#   Options 2)
 #   Push pointer files only
-#     GIT_LFS_SKIP_PUSH=1 git push --no-verify origin main
+#     GIT_LFS_SKIP_PUSH=1 git push origin main
 #   Push LFS objects
-#     git lfs push origin main
-#     git lfs push --all origin main
+#     git lfs push origin main --all
+#
 
 git pull --rebase --autostash origin main
 git push origin main
