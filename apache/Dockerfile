@@ -161,8 +161,9 @@ RUN mkdir /var/www/.ssh
 
 # Ensure /var/www is owned by www-data
 RUN chown www-data:www-data /var/www
-RUN chown www-data:www-data /var/www/git-wordpress
 RUN chown www-data:www-data /var/www/.ssh
+RUN chown www-data:www-data /var/www/html
+RUN chown www-data:www-data /var/www/git-wordpress
 
 USER www-data:www-data
 
