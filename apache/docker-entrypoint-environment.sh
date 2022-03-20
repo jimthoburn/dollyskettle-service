@@ -9,7 +9,8 @@ if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
   # https://render.com/docs/deploy-hooks
-  curl -X POST -d '{}' "$REPLICA_DEPLOY_HOOK"
+  curl -X POST -d '{}' "$REPLICA_MYSQL_DEPLOY_HOOK"
+  curl -X POST -d '{}' "$REPLICA_WORDPRESS_DEPLOY_HOOK"
 
   curl --request POST \
        --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/resume" \
@@ -32,7 +33,8 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
   # https://render.com/docs/deploy-hooks
-  curl -X POST -d '{}' "$REPLICA_DEPLOY_HOOK"
+  curl -X POST -d '{}' "$REPLICA_MYSQL_DEPLOY_HOOK"
+  curl -X POST -d '{}' "$REPLICA_WORDPRESS_DEPLOY_HOOK"
 
   curl --request POST \
        --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/resume" \

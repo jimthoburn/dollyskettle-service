@@ -55,7 +55,7 @@
 #       sync: false
 #     - key: REMOTE_URL_AUTHORIZATION_BASIC
 #       sync: false
-#     - key: REPLICA_DEPLOY_HOOK
+#     - key: REPLICA_WORDPRESS_DEPLOY_HOOK
 #       sync: false
 #     - key: REPLICA_API_TOKEN
 #       sync: false
@@ -128,7 +128,7 @@
 #       sync: false
 #     - key: BACKUP_STATUS_SERVICE_ID
 #       sync: false
-#     - key: REPLICA_DEPLOY_HOOK
+#     - key: REPLICA_WORDPRESS_DEPLOY_HOOK
 #       sync: false
 #     - key: REPLICA_API_TOKEN
 #       sync: false
