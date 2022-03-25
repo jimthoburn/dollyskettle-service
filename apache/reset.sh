@@ -66,7 +66,7 @@ echo "drop database wordpress; create database wordpress;" > delete-wordpress.sq
 mysql \
   -h $WORDPRESS_DB_HOST \
   -u $WORDPRESS_DB_USER \
-  --password=$WORDPRESS_DB_PASSWORD $WORDPRESS_DB_NAME \
+  --password=$WORDPRESS_DB_PASSWORD \
   < /var/www/git-wordpress/delete-wordpress.sql
 
 rm delete-wordpress.sql
