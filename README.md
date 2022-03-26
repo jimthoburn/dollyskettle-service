@@ -1,4 +1,4 @@
-# WordPress Blueprint
+# WordPress Blueprint _beta_
 
 This is example code for automatically setting up a WordPress site with Docker and version-controlled backups. It’s a work in progress. 🚧
 
