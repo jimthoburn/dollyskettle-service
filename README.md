@@ -1,10 +1,14 @@
 # WordPress Blueprint _beta_
 
-This is example code for automatically setting up a WordPress site with Docker and version-controlled backups. It’s a work in progress. 🚧
+Also see: https://github.com/render-examples/wordpress
+
+This is example code for automatically setting up a WordPress site with Docker and version-controlled backups.
+
+It’s a work in progress. 🚧
 
 You can use the included [blueprint](https://render.com/docs/infrastructure-as-code) to host this on [Render](https://render.com/).
 
-This can be used together with a separate [content repository](https://github.com/jimthoburn/wordpress-content-example) that has the WordPress files, uploads and a MySQL backup file.
+This works together with a separate [content repository](https://github.com/jimthoburn/wordpress-content-example) that has the WordPress files, uploads and a MySQL backup file.
 
 The basic steps to get it working are:
 
