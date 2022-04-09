@@ -1,6 +1,6 @@
 # Copied from: https://hub.docker.com/_/wordpress
 
-# https://github.com/docker-library/wordpress/tree/a59112cc8738962784daf2ed9383d5148281c66f/latest/php8.1/apache
+# https://github.com/docker-library/wordpress/blob/master/latest/php8.1/apache/Dockerfile
 FROM php:8.1-apache-bullseye
 
 # persistent dependencies
