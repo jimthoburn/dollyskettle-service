@@ -59,20 +59,20 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   #      --url "https://api.render.com/v1/services/$REMOTE_BACKUP_MYSQL_SERVICE_ID/suspend" \
   #      --header 'Accept: application/json' \
   #      --header "Authorization: Bearer $REMOTE_BACKUP_API_TOKEN"
-  # 
-  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  # echo "Stopping replica"
-  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  # 
-  # curl --request POST \
-  #      --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/suspend" \
-  #      --header 'Accept: application/json' \
-  #      --header "Authorization: Bearer $REPLICA_API_TOKEN"
-  # 
-  # curl --request POST \
-  #      --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/suspend" \
-  #      --header 'Accept: application/json' \
-  #      --header "Authorization: Bearer $REPLICA_API_TOKEN"
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Stopping replica"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+  curl --request POST \
+       --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/suspend" \
+       --header 'Accept: application/json' \
+       --header "Authorization: Bearer $REPLICA_API_TOKEN"
+
+  curl --request POST \
+       --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/suspend" \
+       --header 'Accept: application/json' \
+       --header "Authorization: Bearer $REPLICA_API_TOKEN"
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Finished testing"
