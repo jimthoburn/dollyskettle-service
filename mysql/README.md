@@ -1,4 +1,4 @@
-To connect to MySQL from a terminal in the running service.
+## To connect to MySQL from a terminal in the running service.
 
 ```
 mysql \
@@ -7,7 +7,24 @@ mysql \
 ```
 
 
-Configuration can be added to this file:
+## To make free up space taken by binary logs
+
+1. Connect to MySQL
+
+2. Get a list of logs:
+```
+SHOW BINARY LOGS;
+```
+
+3. Purge logs before some date:
+```
+PURGE BINARY LOGS BEFORE '2022-05-08 22:46:26';
+```
+
+https://dev.mysql.com/doc/refman/8.0/en/purge-binary-logs.html
+
+
+## Configuration can be added to this file:
 
 ```
 /etc/mysql/conf.d/
