@@ -212,6 +212,11 @@ services:
 - type: cron
   name: dollyskettle-backup
   env: python
+  autoDeploy: true
+  # https://render.com/docs/monorepo-support
+  buildFilter:
+    paths:
+      - backup/**
   region: oregon
   schedule: "0 5 * * *"
   startCommand: "bash ./backup/start.sh"
