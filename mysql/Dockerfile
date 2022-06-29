@@ -1,3 +1,3 @@
 # You can change this to a newer version of MySQL available at
 # https://hub.docker.com/_/mysql
-FROM mysql:5.7.37
+FROM mysql:8.0
