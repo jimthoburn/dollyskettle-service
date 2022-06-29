@@ -25,3 +25,13 @@ The “setup” and “backup” scripts will “clone” and “push” to your
 After you run the setup script in the shell, a `~/known_hosts` file should be generated in the root directory. You can copy this to your environment group (see step #4) so it will automatically be available for other instances of your blueprint, like preview environments (to avoid prompts when running setup.sh automatically).
 
 [Git Large File Storage](https://git-lfs.github.com/) is configured automatically, to effeciently store images from the `wp-content` folder. If you have a lot of image files, you may run into [bandwidth and storage limits on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage).
+
+## Troubleshooting
+
+If you notice any SSL issues with WordPress (for example, CSS files that don’t load in a browser), you may want to copy the [wp-config-sample-render.php](https://github.com/jimthoburn/wordpress-content-example/blob/main/html/wp-config-sample-render.php) file to `wp-config.php`, or use it as a guide.
+
+If your WordPress health check shows a “Background updates may not be working properly” message, you can add this line to your theme’s `functions.php` file:
+```
+// https://core.trac.wordpress.org/ticket/52279
+add_filter( 'automatic_updates_is_vcs_checkout', '__return_false' );
+```
