@@ -16,7 +16,7 @@ The basic steps to get it working are:
 2. Create a new GitHub account that only has access to your content repository.
 3. Generate a new SSH key and add it to your new GitHub account.
 4. In your Render dashboard, create a new environment group, following the “wordpress-settings” example in: https://github.com/jimthoburn/wordpress-blueprint/blob/main/render.yaml. For `GIT_REPOSITORY`, enter a value like `username/repository.git`
-5. In your Render dashboard, create a new [blueprint](https://render.com/docs/infrastructure-as-code) using this repository.
+5. In your Render dashboard, create a new [blueprint](https://render.com/docs/infrastructure-as-code) using your forked copy of this repository.
 6. Once your services are up and running, go to the shell for your WordPress service and run the “setup” script: `sh /usr/local/bin/wordpress-setup.sh`
 7. To backup your WordPress content and data, run the “backup” script: `sh /usr/local/bin/wordpress-backup.sh`
 
