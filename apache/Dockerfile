@@ -143,6 +143,12 @@ COPY backup.sh /usr/local/bin/wordpress-backup.sh
 
 VOLUME /var/www
 
+# Set Bash to be the www-data login shell
+RUN usermod -s /bin/bash www-data
+
+# Ensure /var/www is owned by www-data
+RUN chown www-data:www-data /var/www
+
 USER www-data:www-data
 
 CMD ["apache2-foreground"]
