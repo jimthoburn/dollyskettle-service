@@ -12,7 +12,7 @@ This works together with a separate [content repository](https://github.com/jimt
 
 The basic steps to get it working are:
 
-1. Fork this repository and the [content repository](https://github.com/jimthoburn/wordpress-content-example). You may want to make them both private. 🔐
+1. [Use this template](https://github.com/jimthoburn/wordpress-blueprint/generate) to generate a copy of this repository and do the same for the [content repository](https://github.com/jimthoburn/wordpress-content-example). You may want to make them both private. 🔐
 2. Create a new GitHub account that only has access to your content repository.
 3. Generate a new SSH key and add it to your new GitHub account.
 4. In your Render dashboard, create a new environment group, following the “wordpress-settings” example in: https://github.com/jimthoburn/wordpress-blueprint/blob/main/render.yaml. For `GIT_REPOSITORY`, enter a value like `username/repository.git`, with the path to your forked copy of the [content repository](https://github.com/jimthoburn/wordpress-content-example). You can use the account and key you created in steps 2 and 3 for the other environment variables and secrets. And you can create an empty `known_hosts` secret file, to start out with.
