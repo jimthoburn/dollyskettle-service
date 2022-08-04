@@ -163,7 +163,7 @@ services:
   plan: starter
   disk:
     name: www
-    mountPath: /var/www
+    mountPath: /var/www/git-wordpress
     sizeGB: 30
   envVars:
   - fromGroup: dollyskettle-settings

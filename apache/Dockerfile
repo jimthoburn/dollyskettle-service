@@ -146,18 +146,26 @@ COPY backup.sh /usr/local/bin/wordpress-backup.sh
 COPY reset.sh /usr/local/bin/wordpress-reset.sh
 COPY docker-entrypoint-environment.sh /usr/local/bin/docker-entrypoint-environment.sh
 
-VOLUME /var/www
-
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Make a folder where we can attach a persistent disk
+RUN mkdir /var/www/git-wordpress
+VOLUME /var/www/git-wordpress
 
 # Set Bash to be the www-data login shell
 RUN usermod -s /bin/bash www-data
 
+# Create an .ssh folder
+RUN mkdir /var/www/.ssh
+
 # Ensure /var/www is owned by www-data
 RUN chown www-data:www-data /var/www
+RUN chown www-data:www-data /var/www/git-wordpress
+RUN chown www-data:www-data /var/www/.ssh
 
 USER www-data:www-data
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 CMD ["apache2-foreground"]
