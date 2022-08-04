@@ -24,7 +24,7 @@ The basic steps to get it working are:
 
 The “setup” and “backup” scripts will “clone” and “push” to your [content repository](https://github.com/jimthoburn/wordpress-content-example), respectively.
 
-After you run the setup script in the shell, a `~/known_hosts` file should be generated in the root directory. You can copy this to your environment group (see step #4) so it will automatically be available for other instances of your blueprint, like preview environments (to avoid prompts when running setup.sh automatically).
+After you run the setup script in the shell, a `~/known_hosts` file should be generated. You can copy this to your environment group (see step #4) so it will automatically be available for other instances of your blueprint, like preview environments (to avoid prompts when running setup.sh automatically).
 
 [Git Large File Storage](https://git-lfs.github.com/) is configured automatically, to store images from the `wp-content` folder. If you have a lot of image files, you may run into [bandwidth and storage limits on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage).
 
