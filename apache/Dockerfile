@@ -141,13 +141,20 @@ RUN apt-get update && apt-get install -y alpine-pico
 COPY setup.sh /usr/local/bin/wordpress-setup.sh
 COPY backup.sh /usr/local/bin/wordpress-backup.sh
 
-VOLUME /var/www
+# Make a folder where we can attach a persistent disk
+RUN mkdir /var/www/git-wordpress
+VOLUME /var/www/git-wordpress
 
 # Set Bash to be the www-data login shell
 RUN usermod -s /bin/bash www-data
 
+# Create an .ssh folder
+RUN mkdir /var/www/.ssh
+
 # Ensure /var/www is owned by www-data
 RUN chown www-data:www-data /var/www
+RUN chown www-data:www-data /var/www/git-wordpress
+RUN chown www-data:www-data /var/www/.ssh
 
 USER www-data:www-data
 

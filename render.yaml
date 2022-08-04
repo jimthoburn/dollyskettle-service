@@ -33,7 +33,7 @@ services:
   plan: starter
   disk:
     name: wordpress
-    mountPath: /var/www
+    mountPath: /var/www/git-wordpress
     sizeGB: 1
   envVars:
   - fromGroup: wordpress-settings

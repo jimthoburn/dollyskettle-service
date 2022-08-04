@@ -18,9 +18,9 @@ The basic steps to get it working are:
 3. Generate a new SSH key and add it to your new GitHub account.
 4. In your Render dashboard, create a new environment group, following the “wordpress-settings” example in: https://github.com/jimthoburn/wordpress-blueprint/blob/main/render.yaml. For `GIT_REPOSITORY`, enter a value like `username/repository.git`, with the path to your copy of the [content repository](https://github.com/jimthoburn/wordpress-content-example). You can use the account and key you created in steps 2 and 3 for the other environment variables and secrets. And you can create an empty `known_hosts` secret file, to start out with.
 5. In your Render dashboard, create a new [blueprint](https://render.com/docs/infrastructure-as-code) using your copy of this repository.
-6. Once your services are up and running, go to the shell for your WordPress service and run the “setup” script: `sh /usr/local/bin/wordpress-setup.sh`
+6. Once your services are up and running, go to the shell for your WordPress service and run the “setup” script: `bash /usr/local/bin/wordpress-setup.sh`
 7. WordPress will be set up in the `~/html` folder. You may want to copy the `wp-config-sample-render.php` file to `wp-config.php` and update the “keys and salts” section. If this is a new installation of WordPress, you can visit the site in your web browser to complete the setup.
-8. To backup your WordPress content and data, run the “backup” script: `sh /usr/local/bin/wordpress-backup.sh`
+8. To backup your WordPress content and data, run the “backup” script: `bash /usr/local/bin/wordpress-backup.sh`
 
 The “setup” and “backup” scripts will “clone” and “push” to your [content repository](https://github.com/jimthoburn/wordpress-content-example), respectively.
 
