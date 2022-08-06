@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ "$WORDPRESS_ENVIRONMENT" = "replica" ]; then
+
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting reset"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -123,3 +125,5 @@ rm /var/www/html/.maintenance
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+fi
