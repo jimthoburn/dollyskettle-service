@@ -2,7 +2,7 @@
 
 if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
 
-  bash /usr/local/bin/wordpress-backup.sh
+  bash /usr/local/bin/backup.sh
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Update replica"
@@ -49,7 +49,7 @@ fi
 # fi
 
 if [ "$WORDPRESS_ENVIRONMENT" = "replica" ]; then
-  bash /usr/local/bin/wordpress-reset.sh
+  bash /usr/local/bin/reset.sh
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Update backup status"

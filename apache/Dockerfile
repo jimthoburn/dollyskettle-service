@@ -140,10 +140,10 @@ RUN apt-get update && apt-get install -y alpine-pico
 RUN apt-get update && apt-get install -y openssh-client
 RUN apt-get update && apt-get install -y lftp
 
-COPY setup.sh /usr/local/bin/wordpress-setup.sh
-COPY backup.sh /usr/local/bin/wordpress-backup.sh
+COPY setup.sh /usr/local/bin/setup.sh
+COPY backup.sh /usr/local/bin/backup.sh
 # COPY backup-remote.sh /usr/local/bin/wordpress-backup-remote.sh
-COPY reset.sh /usr/local/bin/wordpress-reset.sh
+COPY reset.sh /usr/local/bin/reset.sh
 COPY docker-entrypoint-environment.sh /usr/local/bin/docker-entrypoint-environment.sh
 
 COPY docker-entrypoint.sh /usr/local/bin/
