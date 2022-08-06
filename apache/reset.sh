@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if [ "$WORDPRESS_ENVIRONMENT" = "replica" ]; then
+if 
+[ "$WORDPRESS_ENVIRONMENT" = "replica" ] || 
+[ "$WORDPRESS_ENVIRONMENT" = "staging" ] 
+then
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting reset"
