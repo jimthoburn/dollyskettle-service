@@ -141,6 +141,8 @@ RUN apt-get update && apt-get install -y openssh-client
 RUN apt-get update && apt-get install -y lftp
 
 COPY setup.sh /usr/local/bin/setup.sh
+COPY setup-git-wordpress.sh /usr/local/bin/setup-git-wordpress.sh
+COPY setup-mysql.sh /usr/local/bin/setup-mysql.sh
 COPY backup.sh /usr/local/bin/backup.sh
 # COPY backup-remote.sh /usr/local/bin/wordpress-backup-remote.sh
 COPY reset.sh /usr/local/bin/reset.sh
