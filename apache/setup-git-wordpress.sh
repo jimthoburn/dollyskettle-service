@@ -31,3 +31,9 @@ eval "$(ssh-agent -s)"
 git clone git@github.com:$GITHUB_REPOSITORY /var/www/git-wordpress
 
 fi
+
+# Link default HTML folder to WordPress
+if [ -d "/var/www/git-wordpress/html" ]; then
+  rm -df /var/www/html
+  ln -s /var/www/git-wordpress/html /var/www/html
+fi
