@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ "$WORDPRESS_ENVIRONMENT" = "new" ]; then
+
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Import MySQL database"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -48,3 +50,5 @@ rm /var/www/git-wordpress/wordpress-database/wp_posts.sql
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished setting up MySQL"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+fi

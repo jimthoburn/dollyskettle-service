@@ -21,9 +21,13 @@ chmod 600 /var/www/.ssh/id_ed25519
 chmod 600 /var/www/.ssh/id_ed25519.pub
 chmod 600 /var/www/.ssh/known_hosts
 
+if [ "$WORDPRESS_ENVIRONMENT" = "new" ]; then
+
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Checkout WordPress repository"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
 git clone git@github.com:$GITHUB_REPOSITORY /var/www/git-wordpress
+
+fi
