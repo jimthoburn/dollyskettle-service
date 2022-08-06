@@ -162,7 +162,7 @@ services:
   region: oregon
   plan: starter
   disk:
-    name: www
+    name: git-wordpress
     mountPath: /var/www/git-wordpress
     sizeGB: 30
   envVars:
