@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
+
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Starting backup"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
@@ -143,3 +145,5 @@ git push origin
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished backing up"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+fi
