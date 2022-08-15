@@ -48,7 +48,7 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   fi
 
   cp backup-test-primary.html backup-test-results/backup-test-primary.html
-  cp backup-test-primary.html backup-test-results/backup-test-replica-domain-replaced.html
+  cp backup-test-replica-domain-replaced.html backup-test-results/backup-test-replica-domain-replaced.html
 
   # echo "- - - - - - - - - - - - - - - - - - - - - - -"
   # echo "Stopping remote backup"
