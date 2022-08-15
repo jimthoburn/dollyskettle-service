@@ -34,17 +34,21 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
   mkdir backup-test-results
-
+ 
   # If the files are different
   if [ ! -z "$DIFF_REPLICA" ]; then
     echo "Error: Difference found"
+    echo "$DIFF_REPLICA"
 
-    echo '<html><body style="background-color: red; color: white;"><h1>Backup failed</h1></body></html>' >> backup-test-results/index.html
+    echo '<html><body style="background-color: red; color: white;"><h1>Backup failed</h1><ul><li><a href="backup-test-primary.html">backup-test-primary.html</a></li><li><a href="backup-test-replica-domain-replaced.html">backup-test-replica-domain-replaced.html</a></li></ul></body></html>' >> backup-test-results/index.html
   else
     echo "Success: No differences found"
 
-    echo '<html><body style="background-color: green; color: white;"><h1>Backup succeeded</h1></body></html>' >> backup-test-results/index.html
+    echo '<html><body style="background-color: green; color: white;"><h1>Backup succeeded</h1><ul><li><a href="backup-test-primary.html">backup-test-primary.html</a></li><li><a href="backup-test-replica-domain-replaced.html">backup-test-replica-domain-replaced.html</a></li></ul></body></html>' >> backup-test-results/index.html
   fi
+
+  cp backup-test-primary.html backup-test-results/backup-test-primary.html
+  cp backup-test-primary.html backup-test-results/backup-test-replica-domain-replaced.html
 
   # echo "- - - - - - - - - - - - - - - - - - - - - - -"
   # echo "Stopping remote backup"
