@@ -10,12 +10,6 @@ createMachine(
     testing: {
       entry: "runTestScript",
       always: {
-        target: "deployingPublishMachine",
-      },
-    },
-    deployingPublishMachine: {
-      entry: "resumePublishMachine",
-      always: {
         target: "done",
       },
     },
@@ -28,9 +22,6 @@ createMachine(
     actions: {
       // test.sh
       runTestScript: () => {},
-
-      // publish.sh
-      resumePublishMachine: () => {},
     },
   },
 );

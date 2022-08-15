@@ -19,7 +19,7 @@ createMachine(
       ],
     },
     deployingProduction: {
-      entry: ["suspendBackupStatus", "deployProductionWordpress"],
+      entry: ["deployProductionWordpress"],
       always: {
         target: "waiting",
       },
@@ -35,7 +35,6 @@ createMachine(
 },
   {
     actions: {
-      suspendBackupStatus: () => {},
       deployProductionWordpress: () => {},
     },
     guards: {

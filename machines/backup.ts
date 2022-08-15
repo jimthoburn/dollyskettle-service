@@ -10,11 +10,11 @@ createMachine(
     backingUp: {
       entry: ["deleteGitLockFile", "runBackupScript"],
       onDone: {
-        target: "deployingReplica",
+        target: "publishing",
       },
     },
-    deployingReplica: {
-      entry: ["deployReplicaMySQL", "deployReplicaWordpress"],
+    publishing: {
+      entry: ["resumePublishMachine", "deployReplicaMySQL", "deployReplicaWordpress"],
       always: {
         target: "done",
       },
@@ -30,6 +30,9 @@ createMachine(
 
       // wordpress-backup.sh
       runBackupScript: () => {},
+
+      // docker-entrypoint-environment.sh
+      resumePublishMachine: () => {},
 
       // docker-entrypoint-environment.sh
       deployReplicaMySQL: () => {},
