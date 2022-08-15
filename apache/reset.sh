@@ -129,4 +129,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 echo "Finished reseting"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+echo "Update backup status"
+echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+curl -X POST -d '{}' "$BACKUP_STATUS_DEPLOY_HOOK"
+
 fi
