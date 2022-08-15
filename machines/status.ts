@@ -10,6 +10,12 @@ createMachine(
     testing: {
       entry: "runTestScript",
       always: {
+        target: "suspendingReplica",
+      },
+    },
+    suspendingReplica: {
+      entry: "suspendReplica",
+      always: {
         target: "done",
       },
     },
@@ -22,6 +28,7 @@ createMachine(
     actions: {
       // test.sh
       runTestScript: () => {},
+      suspendReplica: () => {},
     },
   },
 );
