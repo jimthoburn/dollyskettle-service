@@ -78,6 +78,4 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   echo "Finished testing"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-  bash ./backup/publish.sh
-
 fi
