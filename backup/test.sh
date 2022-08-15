@@ -45,6 +45,20 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
     echo "Success: No differences found"
 
     echo '<html><body style="background-color: green; color: white;"><h1>Backup succeeded</h1><ul><li><a href="backup-test-primary.html">backup-test-primary.html</a></li><li><a href="backup-test-replica-domain-replaced.html">backup-test-replica-domain-replaced.html</a></li></ul></body></html>' >> backup-test-results/index.html
+
+    echo "- - - - - - - - - - - - - - - - - - - - - - -"
+    echo "Stopping replica"
+    echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+    curl --request POST \
+      --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/suspend" \
+      --header 'Accept: application/json' \
+      --header "Authorization: Bearer $REPLICA_API_TOKEN"
+
+    curl --request POST \
+      --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/suspend" \
+      --header 'Accept: application/json' \
+      --header "Authorization: Bearer $REPLICA_API_TOKEN"
   fi
 
   cp backup-test-primary.html backup-test-results/backup-test-primary.html
@@ -67,19 +81,5 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Finished testing"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Stopping replica"
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-
-#   curl --request POST \
-#        --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/suspend" \
-#        --header 'Accept: application/json' \
-#        --header "Authorization: Bearer $REPLICA_API_TOKEN"
-  
-#   curl --request POST \
-#        --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/suspend" \
-#        --header 'Accept: application/json' \
-#        --header "Authorization: Bearer $REPLICA_API_TOKEN"
 
 fi
