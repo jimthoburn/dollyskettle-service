@@ -170,6 +170,4 @@ RUN chown www-data:www-data /var/www/git-wordpress
 
 USER www-data:www-data
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
-CMD ["apache2-foreground"]
+CMD ["/usr/local/bin/docker-entrypoint.sh", "apache2-foreground"]
