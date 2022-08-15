@@ -17,6 +17,9 @@ if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
 
   curl -X POST -d '{}' "$PRODUCTION_DEPLOY_HOOK"
 
+  # TBD...
+  # ssh $PRODUCTION_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
+
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Finished backup cron"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
