@@ -224,7 +224,8 @@ services:
     paths:
       - backup/**
   region: oregon
-  schedule: "0 5 * * *"
+  # 4:00 am UTC
+  schedule: "0 4 * * *"
   startCommand: "bash ./backup/start.sh"
   envVars:
   - fromGroup: dollyskettle-settings
