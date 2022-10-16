@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
+if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Testing backup"
@@ -9,8 +9,8 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
   # `-L` follow redirects
   curl -L \
        --request GET \
-       --url "$REMOTE_URL" \
-       --header "Authorization: Basic $REMOTE_URL_AUTHORIZATION_BASIC" \
+       --url "$PRODUCTION_URL" \
+       --header "Authorization: Basic $PRODUCTION_URL_AUTHORIZATION_BASIC" \
        >> backup-test-primary.html
 
   # `-L` follow redirects
@@ -22,10 +22,10 @@ if [ "$WORDPRESS_ENVIRONMENT" = "remote-backup" ]; then
 
   # Remove “https://”
   # https://stackoverflow.com/questions/3795512/delete-the-first-five-characters-on-any-line-of-a-text-file-in-linux-with-sed#answer-3806107
-  REMOTE_HOST=$(echo $REMOTE_URL | sed 's/^........//')
+  PRODUCTION_HOST=$(echo $PRODUCTION_URL | sed 's/^........//')
   REPLICA_HOST=$(echo $REPLICA_URL | sed 's/^........//')
 
-  sed "s/${REPLICA_HOST}/${REMOTE_HOST}/g" backup-test-replica.html >> backup-test-replica-domain-replaced.html
+  sed "s/${REPLICA_HOST}/${PRODUCTION_HOST}/g" backup-test-replica.html >> backup-test-replica-domain-replaced.html
 
   DIFF_REPLICA=$(diff -u backup-test-primary.html backup-test-replica-domain-replaced.html)
 

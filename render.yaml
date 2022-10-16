@@ -23,63 +23,6 @@
 #     - fileName: known_hosts
 #       sync: false
 #
-# - name: dollyskettle-remote-backup
-#   envVars:
-#     - key: WORDPRESS_ENVIRONMENT
-#       value: remote-backup
-#     - key: REMOTE_WORDPRESS_DB_HOST
-#       sync: false
-#     - key: REMOTE_WORDPRESS_DB_USER
-#       sync: false
-#     - key: REMOTE_WORDPRESS_DB_PASSWORD
-#       sync: false
-#     - key: REMOTE_WORDPRESS_DB_NAME
-#       sync: false
-#     - key: REMOTE_WORDPRESS_SSH_HOST
-#       sync: false
-#     - key: REMOTE_WORDPRESS_SSH_USER
-#       sync: false
-#     - key: REMOTE_WORDPRESS_SSH_PASSWORD
-#       sync: false
-#     - key: REMOTE_WORDPRESS_FILE_PATH
-#       sync: false
-#     - key: REMOTE_BACKUP_DEPLOY_HOOK
-#       sync: false
-#     - key: REMOTE_BACKUP_API_TOKEN
-#       sync: false
-#     - key: REMOTE_BACKUP_MYSQL_SERVICE_ID
-#       sync: false
-#     - key: REMOTE_BACKUP_WORDPRESS_SERVICE_ID
-#       sync: false
-#     - key: REMOTE_URL
-#       sync: false
-#     - key: REMOTE_URL_AUTHORIZATION_BASIC
-#       sync: false
-#     - key: REPLICA_WORDPRESS_DEPLOY_HOOK
-#       sync: false
-#     - key: REPLICA_API_TOKEN
-#       sync: false
-#     - key: REPLICA_MYSQL_SERVICE_ID
-#       sync: false
-#     - key: REPLICA_WORDPRESS_SERVICE_ID
-#       sync: false
-#     - key: REPLICA_URL
-#       sync: false
-#     - key: REPLICA_URL_AUTHORIZATION_BASIC
-#       sync: false
-#     - key: BACKUP_STATUS_DEPLOY_HOOK
-#       sync: false
-#     - key: BACKUP_STATUS_API_TOKEN
-#       sync: false
-#     - key: BACKUP_STATUS_SERVICE_ID
-#       sync: false
-#     - key: PUBLISH_DEPLOY_HOOK
-#       sync: false
-#     - key: PUBLISH_API_TOKEN
-#       sync: false
-#     - key: PUBLISH_SERVICE_ID
-#       sync: false
-#
 # - name: dollyskettle-replica
 #   envVars:
 #     - key: WORDPRESS_ENVIRONMENT
@@ -146,16 +89,13 @@
 #       sync: false
 #     - key: PUBLISH_SERVICE_ID
 #       sync: false
-#
-#   NOTE: This is for documentation purposes and isn’t supported by Render
-#   secretFiles:
-#     - fileName: id_ed25519
+#     - key: REPLICA_URL
 #       sync: false
-#     - fileName: id_ed25519.pub
+#     - key: REPLICA_URL_AUTHORIZATION_BASIC
 #       sync: false
-#     - fileName: known_hosts
+#     - key: PRODUCTION_URL
 #       sync: false
-#     - fileName: config.json
+#     - key: PRODUCTION_URL_AUTHORIZATION_BASIC
 #       sync: false
 #
 previewsEnabled: false
