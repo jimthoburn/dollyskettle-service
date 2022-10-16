@@ -195,9 +195,9 @@ services:
       envVarKey: MYSQL_PASSWORD
 - type: pserv
   name: dollyskettle-mysql
+  env: docker
   dockerfilePath: ./mysql/Dockerfile
   dockerContext: ./mysql
-  env: docker
   autoDeploy: false
   region: oregon
   plan: starter
@@ -217,7 +217,9 @@ services:
 # A Python cron job that runs at 5 a.m. UTC
 - type: cron
   name: dollyskettle-backup
-  env: python
+  env: docker
+  dockerfilePath: ./backup/Dockerfile
+  dockerContext: ./backup
   autoDeploy: true
   # https://render.com/docs/monorepo-support
   buildFilter:
@@ -226,7 +228,6 @@ services:
   region: oregon
   # 4:00 am UTC
   schedule: "0 4 * * *"
-  startCommand: "bash ./backup/start.sh"
   envVars:
   - fromGroup: dollyskettle-settings
 - type: web
