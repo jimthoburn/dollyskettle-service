@@ -31,36 +31,38 @@ if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
   echo "Run backup script in production WordPress service using SSH"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-  ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
+  ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "echo 'hello world'"
 
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Start publishing service"
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  
-  curl -X POST -d '{}' "$PUBLISH_DEPLOY_HOOK"
-  
-  curl --request POST \
-    --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/resume" \
-    --header 'Accept: application/json' \
-    --header "Authorization: Bearer $PUBLISH_API_TOKEN"
-  
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Deploy replica"
-  echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  
-  # https://render.com/docs/deploy-hooks
-  curl -X POST -d '{}' "$REPLICA_MYSQL_DEPLOY_HOOK"
-  curl -X POST -d '{}' "$REPLICA_WORDPRESS_DEPLOY_HOOK"
-  
-  curl --request POST \
-       --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/resume" \
-       --header 'Accept: application/json' \
-       --header "Authorization: Bearer $REPLICA_API_TOKEN"
-  
-  curl --request POST \
-       --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/resume" \
-       --header 'Accept: application/json' \
-       --header "Authorization: Bearer $REPLICA_API_TOKEN"
+  # ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
+  # 
+  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  # echo "Start publishing service"
+  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  # 
+  # curl -X POST -d '{}' "$PUBLISH_DEPLOY_HOOK"
+  # 
+  # curl --request POST \
+  #   --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/resume" \
+  #   --header 'Accept: application/json' \
+  #   --header "Authorization: Bearer $PUBLISH_API_TOKEN"
+  # 
+  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  # echo "Deploy replica"
+  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  # 
+  # # https://render.com/docs/deploy-hooks
+  # curl -X POST -d '{}' "$REPLICA_MYSQL_DEPLOY_HOOK"
+  # curl -X POST -d '{}' "$REPLICA_WORDPRESS_DEPLOY_HOOK"
+  # 
+  # curl --request POST \
+  #      --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/resume" \
+  #      --header 'Accept: application/json' \
+  #      --header "Authorization: Bearer $REPLICA_API_TOKEN"
+  # 
+  # curl --request POST \
+  #      --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/resume" \
+  #      --header 'Accept: application/json' \
+  #      --header "Authorization: Bearer $REPLICA_API_TOKEN"
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Finished backup cron job"
