@@ -3,16 +3,67 @@
 if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Start backup by redploying production"
+  echo "Starting backup cron job"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-  curl -X POST -d '{}' "$PRODUCTION_DEPLOY_HOOK"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Configure SSH for cron job"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-  # TBD...
-  # ssh $PRODUCTION_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
+  mkdir /root/.ssh
+
+  cp /etc/secrets/id_ed25519 /root/.ssh/id_ed25519
+  cp /etc/secrets/id_ed25519.pub /root/.ssh/id_ed25519.pub
+  cp /etc/secrets/known_hosts /root/.ssh/known_hosts
+
+  # https://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file
+  sed -i -e '$a\' /root/.ssh/id_ed25519
+  sed -i -e '$a\' /root/.ssh/id_ed25519.pub
+  sed -i -e '$a\' /root/.ssh/known_hosts
+
+  chmod 600 /root/.ssh/id_ed25519
+  chmod 600 /root/.ssh/id_ed25519.pub
+  chmod 600 /root/.ssh/known_hosts
+
+  eval "$(ssh-agent -s)"
 
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Finished backup cron"
+  echo "Run backup script in production WordPress service using SSH"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+
+  ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Start publishing service"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  
+  curl -X POST -d '{}' "$PUBLISH_DEPLOY_HOOK"
+  
+  curl --request POST \
+    --url "https://api.render.com/v1/services/$PUBLISH_SERVICE_ID/resume" \
+    --header 'Accept: application/json' \
+    --header "Authorization: Bearer $PUBLISH_API_TOKEN"
+  
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Deploy replica"
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  
+  # https://render.com/docs/deploy-hooks
+  curl -X POST -d '{}' "$REPLICA_MYSQL_DEPLOY_HOOK"
+  curl -X POST -d '{}' "$REPLICA_WORDPRESS_DEPLOY_HOOK"
+  
+  curl --request POST \
+       --url "https://api.render.com/v1/services/$REPLICA_MYSQL_SERVICE_ID/resume" \
+       --header 'Accept: application/json' \
+       --header "Authorization: Bearer $REPLICA_API_TOKEN"
+  
+  curl --request POST \
+       --url "https://api.render.com/v1/services/$REPLICA_WORDPRESS_SERVICE_ID/resume" \
+       --header 'Accept: application/json' \
+       --header "Authorization: Bearer $REPLICA_API_TOKEN"
+
+  echo "- - - - - - - - - - - - - - - - - - - - - - -"
+  echo "Finished backup cron job"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 fi

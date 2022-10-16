@@ -136,6 +136,8 @@
 #       sync: false
 #     - key: REPLICA_WORDPRESS_SERVICE_ID
 #       sync: false
+#     - key: PRODUCTION_WORDPRESS_SSH_ADDRESS
+#       sync: false
 #     - key: PRODUCTION_DEPLOY_HOOK
 #       sync: false
 #     - key: PUBLISH_DEPLOY_HOOK
