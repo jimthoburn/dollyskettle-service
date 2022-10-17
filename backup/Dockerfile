@@ -3,6 +3,7 @@
 # https://github.com/docker-library/php/blob/master/8.1/bullseye/apache/Dockerfile
 FROM debian:bullseye-slim
 
+RUN apt-get update && apt-get install -y curl
 RUN apt-get update && apt-get install -y openssh-client
 
 WORKDIR /root
