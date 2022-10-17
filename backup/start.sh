@@ -31,10 +31,8 @@ if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
   echo "Run backup script in production WordPress service using SSH"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
-  ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "echo 'hello world'"
+  ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
 
-  # ssh $PRODUCTION_WORDPRESS_SSH_ADDRESS "bash /usr/local/bin/backup.sh"
-  # 
   # echo "- - - - - - - - - - - - - - - - - - - - - - -"
   # echo "Start publishing service"
   # echo "- - - - - - - - - - - - - - - - - - - - - - -"
