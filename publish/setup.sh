@@ -63,7 +63,7 @@ netlify status
 git config -l
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Checkout repository"
+echo "Checkout repository for published site"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 eval "$(ssh-agent -s)"
@@ -130,7 +130,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - -"
 df -h
 
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
-echo "Get files for remote backup"
+echo "Checkout repository for WordPress"
 echo "- - - - - - - - - - - - - - - - - - - - - - -"
 
 git clone git@github.com:$GITHUB_REPOSITORY_WORDPRESS /root/git-wordpress

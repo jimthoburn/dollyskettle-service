@@ -64,20 +64,6 @@ if [ "$WORDPRESS_ENVIRONMENT" = "production" ]; then
   cp backup-test-primary.html backup-test-results/backup-test-primary.html
   cp backup-test-replica-domain-replaced.html backup-test-results/backup-test-replica-domain-replaced.html
 
-  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  # echo "Stopping remote backup"
-  # echo "- - - - - - - - - - - - - - - - - - - - - - -"
-  # 
-  # curl --request POST \
-  #      --url "https://api.render.com/v1/services/$REMOTE_BACKUP_WORDPRESS_SERVICE_ID/suspend" \
-  #      --header 'Accept: application/json' \
-  #      --header "Authorization: Bearer $REMOTE_BACKUP_API_TOKEN"
-  # 
-  # curl --request POST \
-  #      --url "https://api.render.com/v1/services/$REMOTE_BACKUP_MYSQL_SERVICE_ID/suspend" \
-  #      --header 'Accept: application/json' \
-  #      --header "Authorization: Bearer $REMOTE_BACKUP_API_TOKEN"
-
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
   echo "Finished testing"
   echo "- - - - - - - - - - - - - - - - - - - - - - -"
